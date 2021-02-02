@@ -1,0 +1,250 @@
+.container {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+  background-color: white;
+
+  .search-part {
+    width: 100%;
+    min-width: 300px;
+    height: 40vh;
+    position: absolute;
+    text-align: center;
+    background-image: url("https://diunehotel.pl/wp-content/uploads/2015/11/Diune_Hotel-by_Zdrojowa-Kolobrzeg-Pokoj-Room-Standard_View-Salon-Living_room-01-Web.jpg");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .search-box {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    background: 0;
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+
+
+    .accommodation {
+      margin-top: 10vh;
+      max-width: 992px;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: solid;
+      border-color: goldenrod;
+
+      .place-search {
+        max-height: 60px;
+        padding: unset;
+        position: relative;
+        float: left;
+        border: none;
+
+        input {
+          height: 60px;
+          width: 100% !important;
+          text-align: center;
+          border: none;
+        }
+
+        :focus {
+          border: none;
+          outline: none;
+        }
+      }
+
+      .dates-picker {
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-height: 60px;
+        position: relative;
+        background-color: white;
+        box-sizing: border-box;
+        border: none;
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+
+        ::ng-deep .mat-form-field-appearance-fill {
+          .mat-form-field-wrapper {
+            padding-bottom: 0 !important;
+
+            .mat-form-field-flex {
+              padding: 0.25em 0 0.45em 2.5em !important;
+              background-color: #ffffff;
+
+              .mat-form-field-infix {
+                padding: 0.10em 0 0.85em 0 !important;
+
+                .mat-date-range-input {
+                  .mat-date-range-input-container {
+                    .mat-date-range-input-start-wrapper {
+                      min-height: 19px;
+                    }
+
+                    .mat-date-range-input-end-wrapper {
+                      min-height: 19px;
+                    }
+                  }
+                }
+              }
+            }
+
+            .mat-form-field-underline {
+              display: none;
+            }
+
+          }
+        }
+
+        ::ng-deep .mat-datepicker-toggle {
+          .mat-focus-indicator {
+            border: none;
+            outline: none;
+          }
+        }
+      }
+
+      .input-group-guest {
+        height: 60px;
+        width: 100%;
+        padding: 0 0 0 0;
+        border: none;
+
+        .show-guest-wrapper-button {
+          height: 60px;
+          background-color: white;
+          width: 100%;
+          text-align: center;
+          border: none;
+        }
+
+        .show-guest-wrapper-button:visited,
+        .show-guest-wrapper-button:focus,
+        .show-guest-wrapper-button:active,
+        .show-guest-wrapper-button:hover {
+          outline: 0 none !important;
+          border: none !important;
+        }
+
+        .guest-input-container {
+          padding-top: 15px;
+          background-color: white;
+          min-width: 300px;
+          margin-top: 5px;
+          border-radius: 4px;
+          display: block;
+          right: 0;
+          left: 0;
+          top: 100%;
+          position: absolute;
+          z-index: 999;
+          padding-right: 0;
+          padding-left: 0;
+          box-shadow: 1px 3px 1px 1px rgb(129, 129, 128), 0 0 10px rgb(129, 129, 128);
+
+          .guest-input-inscription {
+
+            span {
+              display: block;
+              margin-left: 20px;
+              margin-right: 5px;
+              text-align: left;
+            }
+
+          }
+
+          .guests-box {
+            align-items: center;
+            padding-top: 20px;
+            display: block;
+
+            div {
+              display: inline-block;
+              margin-left: 8px;
+              margin-right: 8px;
+            }
+
+            .guests-box-inscription {
+              margin-right: 35px;
+              margin-left: 0;
+            }
+
+            .counting-guest-box {
+
+              button {
+                margin-right: 8px;
+                margin-left: 8px;
+                color: #3C6EB4 !important;
+                border-color: #3c6eb4;
+                box-shadow: 0 2px 0 0 #3c6eb4, 0 0 3px rgb(129, 129, 128);
+              }
+            }
+          }
+
+          .rooms-box {
+            padding-right: 0;
+            padding-left: 0;
+            align-items: center;
+            padding-top: 20px;
+            margin-bottom: 20px;
+            display: block;
+
+            div {
+              display: inline-block;
+              margin-left: 8px;
+              margin-right: 8px;
+            }
+
+            .rooms-box-inscription {
+              margin-right: 35px;
+              margin-left: 0;
+            }
+
+            .counting-rooms-box {
+
+              button {
+                margin-right: 8px;
+                margin-left: 8px;
+                color: #3C6EB4 !important;
+                border-color: #3c6eb4;
+                box-shadow: 0 2px 0 0 #3c6eb4, 0 0 3px rgb(129, 129, 128);
+              }
+            }
+
+          }
+        }
+      }
+
+      .submit-button-container {
+        height: 60px;
+        background-color: white;
+        align-items: center;
+        width: 100%;
+        padding: 0 0 0 0;
+        border: none;
+
+
+        button:visited, button:focus, button:active, button:hover {
+          outline: 0 none !important;
+        }
+
+        .search-button {
+          background-color: #006aba;
+          width: 100%;
+          border-style: none;
+          height: 100%;
+
+          i {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+

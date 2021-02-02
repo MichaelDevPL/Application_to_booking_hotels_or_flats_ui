@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="col-md-12 col-md-offset-1">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Sign up</strong></h3>
+        <hr>
+      </div>
+
+      <div class="panel-body">
+        <form [formGroup]="accountDataForm">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+                <input type="text" formControlName="login" class="form-control" placeholder="Login">
+                <div *ngIf="submitted && getFromAccountDataForm.login.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Login is required
+                </div>
+                <div *ngIf="submitted && loginIsNotAvailable" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Login name isn't available
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                <div *ngIf="submitted && getFromAccountDataForm.password.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Password is invalid
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="password" #passwordConfValue (input)="passwordConfirm=passwordConfValue.value"
+                       class="form-control" placeholder="Password">
+                <div *ngIf="submitted && !passwordMatchValid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Password is match
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+        <form [formGroup]="userDataForm">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="name" class="form-control" placeholder="Name">
+                <div *ngIf="submitted && getFromUserDataForm.name.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Name is required
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="surname" class="form-control " placeholder="Surname">
+                <div *ngIf="submitted && getFromUserDataForm.surname.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Surname is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="email" formControlName="email" class="form-control " placeholder="Email Address">
+                <div *ngIf="submitted && getFromUserDataForm.email.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Email is required
+                </div>
+                <div *ngIf="submitted && emailIsNotAvailable" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Email is use already
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="phone" class="form-control " placeholder="Phone Number">
+                <div *ngIf="submitted && getFromUserDataForm.phone.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Phone number is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vertical-center">
+            <button type="submit" class="btn btn-primary button-submit col-xs-12 col-sm-4 col-md-4"
+                    (click)="submit()">
+              <span>Apply</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

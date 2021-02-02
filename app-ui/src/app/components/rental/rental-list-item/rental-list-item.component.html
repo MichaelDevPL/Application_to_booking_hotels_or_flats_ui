@@ -1,0 +1,12 @@
+<a routerLink="{{count}}">
+  <div class="card bwm-card">
+    <div> Item number: {{ count }} </div>
+    <img class="card-img-top" src="{{rental.image}}" alt="">
+    <div class="card-block">
+      <h6 class="card-subtitle">{{rental.title}} &#183; {{rental.city}}</h6>
+      <h4 class="card-title">{{rental.description}}</h4>
+      <p class="card-text">${{rental.dailyRate}} per Night &#183; Free Cancellation</p>
+      <a href="#" class="card-link">More Info</a>
+    </div>
+  </div>
+</a>

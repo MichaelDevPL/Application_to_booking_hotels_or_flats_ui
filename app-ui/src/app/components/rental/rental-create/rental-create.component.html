@@ -1,0 +1,125 @@
+<div class="container">
+  <section>
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>New Rental Offer</strong></h3>
+      <hr>
+    </div>
+
+    <div class="panel-body">
+      <form [formGroup]="rentalForm">
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <input type="text" formControlName="title" class="form-control" placeholder="Title">
+              </label>
+              <div *ngIf="submitted && getFromForm.title.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Tittle required
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <textarea formControlName="description" class="form-control" placeholder="Description" rows="2"
+                          wrap="soft"></textarea>
+              </label>
+              <div *ngIf="submitted && getFromForm.description.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Description required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <input type="text" formControlName="street" class="form-control" placeholder="Street">
+              </label>
+              <div *ngIf="submitted && getFromForm.street.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Street required
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <input type="text" formControlName="city" class="form-control" placeholder="City">
+              </label>
+              <div *ngIf="submitted && getFromForm.city.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>City required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <select formControlName="category" class="form-control">
+                  <option value="" selected disabled hidden >--Please choose an option--</option>
+                  <option *ngFor="let category of categories" [ngValue]="category">
+                    {{ category }}
+                  </option>
+                </select>
+              </label>
+              <div *ngIf="submitted && getFromForm.category.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Please choose an option
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <input type="text" formControlName="bedrooms" class="form-control" placeholder="Bedrooms">
+              </label>
+              <div *ngIf="submitted && getFromForm.bedrooms.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Bedrooms required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <label>
+                <input type="text" formControlName="dailyRate" class="form-control" placeholder="Daily Rate">
+              </label>
+              <div *ngIf="submitted && getFromForm.dailyRate.invalid" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#"></a>Daily rate required
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="upload-file-part">
+        <div class="row">
+          <div class="upload-btn-wrapper vertical-center col-xs-12 col-sm-12 col-md-12 col-lg-2">
+            <button class="btn">Upload a file</button>
+            <input type="file" (change)="selectFile($event)" multiple>
+          </div>
+          <div class="preview-images col-xs-12 col-sm-12 col-md-12 col-lg-10">
+              <img *ngFor="let url of urls; index as i" [src]="url" class="image"
+                   width="180" height="100" alt="" (click)="deleteImageFromSelected(i)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="vertical-center">
+    <button type="submit" class="btn btn-primary button-submit col-xs-12 col-sm-12 col-md-4"
+            (click)="submit()">
+      <span> Create </span>
+    </button>
+  </div>
+</div>

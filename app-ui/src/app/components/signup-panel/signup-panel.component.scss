@@ -1,0 +1,37 @@
+.container{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: white;
+
+  .panel-title{
+    text-align: center;
+  }
+
+  .panel-heading{
+    padding-bottom: 50px;
+    padding-top: 80px;
+  }
+
+  .row {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .vertical-center{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button-submit {
+    background-color: #006aba;
+  }
+
+  .button-submit:focus, .button-submit:active{
+    box-shadow: 2px 4px 10px 4px #006aba;
+  }
+
+}
+

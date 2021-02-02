@@ -1,0 +1,87 @@
+<div class="container">
+
+  <section class="search-part">
+
+    <div class="section-image"></div>
+
+    <form class="search-box">
+      <div class="row accommodation">
+
+        <div class="col-xs-12 col-lg-4 place-search">
+          <input type="text"
+                 placeholder=" Search place"
+                 [formControl]="control"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCity($event.option.value)">
+            <mat-option *ngFor="let city of filteredCity | async" [value]="city">
+              {{city}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <div class="col-xs-12 col-lg-4 dates-picker">
+          <mat-form-field appearance="fill">
+            <mat-date-range-input [formGroup]="datePickerForm" [rangePicker]="picker">
+              <input matStartDate formControlName="startDate" placeholder="Start date">
+              <input matEndDate formControlName="endDate" placeholder="End date">
+            </mat-date-range-input>
+          </mat-form-field>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </div>
+
+        <div class="col-xs-12 col-lg-3 input-group-guest">
+          <button type="submit" class="show-guest-wrapper-button" (click)="showGuestsContent()">
+            <div *ngIf="numberOfGuest > 1 && numberOfRoom > 1">{{numberOfGuest}} Guests ·  {{numberOfRoom}} Rooms</div>
+            <div *ngIf="numberOfGuest > 1 && numberOfRoom == 1">{{numberOfGuest}} Guests ·  {{numberOfRoom}} Room</div>
+            <div *ngIf="numberOfGuest == 1 && numberOfRoom > 1">{{numberOfGuest}} Guest ·  {{numberOfRoom}} Rooms</div>
+            <div *ngIf="numberOfGuest == 1 && numberOfRoom == 1">{{numberOfGuest}} Guest ·  {{numberOfRoom}} Room</div>
+          </button>
+          <div class="row">
+            <div class="col-md-12 guest-input-container" *ngIf="showGuestCont" (mouseleave)="showGuestCont=false">
+              <div class="guest-input-inscription">
+                <span>Guests and rooms: </span>
+              </div>
+              <div class="col-md-12 guests-box">
+                <div class="guests-box-inscription">
+                  <span>Guests</span>
+                </div>
+                <div class="counting-guest-box">
+                  <button class="btn btn-default btn-number" (click)="decreaseGuestNumber()">
+                    <span> - </span>
+                  </button>
+                  <div> {{numberOfGuest}} </div>
+                  <button class="btn btn-default btn-number" (click)="increaseGuestNumber()">
+                    <span> + </span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-12 rooms-box">
+                <div class="rooms-box-inscription">
+                  <span>Rooms</span>
+                </div>
+                <div class="counting-rooms-box">
+                  <button class="btn btn-default btn-number" (click)="decreaseRoomNumber()">
+                    <span> - </span>
+                  </button>
+                  <div> {{numberOfRoom}} </div>
+                  <button class="btn btn-default btn-number" (click)="increaseRoomNumber()">
+                    <span> + </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-lg-1 submit-button-container">
+          <button type="button" class="search-button" (click)="search()">
+            <i class="fa fa-search fa-2x"></i>
+          </button>
+        </div>
+
+      </div>
+    </form>
+  </section>
+</div>
+

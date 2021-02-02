@@ -1,0 +1,50 @@
+nav {
+  width: 100%;
+  background-image: linear-gradient(rgb(238, 238, 238) 0%, rgb(221, 221, 221) 100%);
+  box-shadow: 0 3px 0 0 #ccc, 0 0 10px rgba(0, 0, 0, 0.25);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: inline-block;
+    padding: 0.7em 0.5em 0.7em 0.5em;
+  }
+
+  .afterLoggedButton, .navButton {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #818180 !important;
+    font-size: 15px;
+  }
+
+  .navbar-toggler {
+    border: none;
+    outline: none;
+    margin: 0.5em 0 0.5em 0;
+
+    .navbar-toggler-icon {
+      background-image: url('../../shared/icons/iconfinder-icon.svg');
+
+      :focus, :active {
+        border: none;
+        outline: none;
+      }
+    }
+  }
+
+    .navbar-toggler:active {
+      background: #818180;
+    }
+
+    button:hover, button:focus {
+      text-decoration-line: underline;
+      box-shadow: 2px 4px 10px 4px #818180;
+    }
+  }
