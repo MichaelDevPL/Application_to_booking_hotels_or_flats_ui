@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Application_to_booking_hotels_or_flats_ui.iml" filepath="$PROJECT_DIR$/.idea/Application_to_booking_hotels_or_flats_ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/app-ui.iml" filepath="$PROJECT_DIR$/.idea/app-ui.iml" />
     </modules>
   </component>
 </project>
