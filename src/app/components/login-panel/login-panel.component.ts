@@ -9,7 +9,6 @@ import {AuthenticationService} from '../../shared/services/authentication.servic
 })
 export class LoginPanelComponent implements OnInit {
 
-//  private loginData: LoginData = new LoginData('test', 'password');
   public loginForm: FormGroup;
   public submitted = false;
 
@@ -32,7 +31,6 @@ export class LoginPanelComponent implements OnInit {
     this.submitted = true;
     if (!this.loginForm.invalid) {
       this.authService.sighIn(this.loginForm.value);
-      console.log(this.loginForm.value);
     }
   }
 }

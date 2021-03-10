@@ -8,10 +8,10 @@
   .search-part {
     width: 100%;
     min-width: 300px;
-    height: 40vh;
+    height: 537px;
     position: absolute;
     text-align: center;
-    background-image: url("https://diunehotel.pl/wp-content/uploads/2015/11/Diune_Hotel-by_Zdrojowa-Kolobrzeg-Pokoj-Room-Standard_View-Salon-Living_room-01-Web.jpg");
+    background-image: url("../../shared/pictures/hotel-room-home-panel.jpg");
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -26,8 +26,7 @@
     border: 0;
     padding: 0;
 
-
-    .accommodation {
+    .search-offer-data-box {
       margin-top: 10vh;
       max-width: 992px;
       margin-left: auto;

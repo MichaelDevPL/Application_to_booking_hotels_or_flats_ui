@@ -5,10 +5,10 @@ import { LoginPanelComponent } from '../components/login-panel/login-panel.compo
 import { SignupPanelComponent } from '../components/signup-panel/signup-panel.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePanelComponent },
   { path: 'login', component: LoginPanelComponent },
   { path: 'signup', component: SignupPanelComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];
 

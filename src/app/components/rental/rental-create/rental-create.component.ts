@@ -4,9 +4,11 @@ import {HttpResponse} from '@angular/common/http';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {RentalImage} from '../../../shared/models/rental/rental-image.model';
-import {JwtManagerService} from 'src/app/shared/authentication/jwt-manager.service';
 import {RentalCategory} from '../../../shared/enums/rental-category.enum';
 import {ObjectUtils} from '../../../util/object.utils';
+import {RentalService} from '../../../shared/services/rental.service';
+import {SharedDataService} from '../../../shared/services/shared-data.service';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rental-create',
@@ -15,7 +17,8 @@ import {ObjectUtils} from '../../../util/object.utils';
 })
 export class RentalCreateComponent implements OnInit {
 
-  public selectedImages: Array<File>;
+  public selectedImages: Array<File> = new Array<File>();
+  public storedImagesPath: Array<string> = new Array<string>();
   public urls = new Map();
 
   public rentalForm: FormGroup;
@@ -26,7 +29,9 @@ export class RentalCreateComponent implements OnInit {
   public submitted = false;
 
   constructor(
+    private sharedDataService: SharedDataService,
     private uploadImageService: UploadImageService,
+    private rentalService: RentalService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -38,9 +43,9 @@ export class RentalCreateComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(10)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
       city: ['', Validators.required],
-      street: ['', Validators.required],
+      address: ['', Validators.required],
       category: ['', Validators.required],
-      images: this.formBuilder.array([]),
+      rentalImages: this.formBuilder.array([]),
       bedrooms: ['', Validators.required],
       dailyRate: ['', Validators.required]
     });
@@ -49,7 +54,7 @@ export class RentalCreateComponent implements OnInit {
 
   /*Add images path as array to rentalForm*/
   images(): FormArray {
-    return this.rentalForm.get('images') as FormArray;
+    return this.rentalForm.get('rentalImages') as FormArray;
   }
 
   newFormGroupImagePath(imagePath: string): FormGroup {
@@ -120,10 +125,28 @@ export class RentalCreateComponent implements OnInit {
             new Array<RentalImage>(),
             event.body
           ).forEach(value => {
+            this.storedImagesPath.push(value.path);
             this.addNewImage(this.newFormGroupImagePath(value.path));
           });
         }
-      });
+      }).add(() => {
+      console.log(this.rentalForm.getRawValue());
+      this.rentalService.createNewRentalOffer(this.rentalForm.getRawValue())
+        .subscribe((value) => {
+          if (value) {
+           this.router.navigate(['/home']);
+          } else{
+            const errorMessage = `Problem occurred !!!\n Please try again`;
+            window.alert(errorMessage);
+
+            this.storedImagesPath.forEach(path => {
+              this.uploadImageService.deleteStoredImage(path);
+            });
+
+            window.location.reload();
+          }
+        });
+    });
   }
 
   deleteImageFromSelected(key: any): void {
@@ -133,10 +156,6 @@ export class RentalCreateComponent implements OnInit {
 
   submit(): void {
     this.submitted = true;
-    this.previewSelectedImages();
-    // this.upload();
-    // console.log(JwtManagerService.getExpirationTimeValid());
-    // console.log(this.selectedImages);
-    // this.deleteImageFromSelected(0);
+    if (this.rentalForm.valid && this.selectedImages.length > 0 ) { this.upload(); }
   }
 }

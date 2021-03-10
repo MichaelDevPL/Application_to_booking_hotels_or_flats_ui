@@ -25,7 +25,7 @@
       <li class="nav-item">
         <button *ngIf="!isLoggedPanelVisible()" class="btn btn-link btn-header afterLoggedButton"
                 routerLink="/user/{{accountData._login}}">
-          <i class="fa fa-user fa-lg"> {{accountData._login}}</i>
+          <i class="fa fa-user fa-lg"> {{accountData._login.toUpperCase()}}</i>
         </button>
         <button *ngIf="isLoggedPanelVisible()" routerLink="/signup" class="btn btn-link btn-header navButton">
           <i class="fa fa-lg"> Sign up</i>

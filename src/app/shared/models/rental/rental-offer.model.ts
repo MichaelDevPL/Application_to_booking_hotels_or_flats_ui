@@ -7,12 +7,12 @@ export class RentalOffer {
   title: string;
   description: string;
   city: string;
-  street: string;
-  rentalCategory: RentalCategory;
-  images: RentalImage[];
+  address: string;
+  category: RentalCategory;
+  rentalImages: RentalImage[];
   bedrooms: number;
   dailyRate: number;
   createdAt?: string;
-  offerOwnerId?: bigint;
-  bookings?: RentalCalendar[];
+  offerOwnerId?: number;
+  rentalSchedule?: RentalCalendar[];
 }

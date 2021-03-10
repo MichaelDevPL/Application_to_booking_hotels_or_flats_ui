@@ -1,5 +1,5 @@
 export enum RentalCategory{
-  house,
-  apartment,
-  condo
+  HOUSE,
+  APARTMENT,
+  CONDO
 }

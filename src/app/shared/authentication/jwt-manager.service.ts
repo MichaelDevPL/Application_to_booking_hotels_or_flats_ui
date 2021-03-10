@@ -2,7 +2,7 @@ import { JwtToken } from './jwt-token.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ObjectUtils } from '../../util/object.utils';
 import { Injectable } from '@angular/core';
-import { interval, Observable, Subscriber, Subscription } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,6 @@ export class JwtManagerService {
   }
 
   public static saveToken(jwtToken: JwtToken): void {
-    console.log(jwtToken.token);
     localStorage.setItem('jwtToken', jwtToken.token);
   }
 
@@ -23,7 +22,6 @@ export class JwtManagerService {
 
   public static getExpirationTimeValid(): boolean {
     const helper = new JwtHelperService();
-    console.log(helper.getTokenExpirationDate(this.getToken()));
     return !helper.isTokenExpired(this.getToken());
   }
 

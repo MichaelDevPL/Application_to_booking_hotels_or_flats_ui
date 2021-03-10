@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {DatePipe, formatDate} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {MapService} from '../../shared/services/map.service';
 import {ObjectUtils} from '../../util/object.utils';
+import {RentalService} from '../../shared/services/rental.service';
+import {SharedDataService} from '../../shared/services/shared-data.service';
 
 @Component({
   selector: 'app-home-panel',
@@ -16,11 +18,8 @@ import {ObjectUtils} from '../../util/object.utils';
 
 export class HomePanelComponent implements OnInit {
 
-  private choseCity: string;
-
-  public control = new FormControl();
   public filteredCity: Observable<string[]>;
-  public datePickerForm: FormGroup;
+  public searchAccommodationForm: FormGroup;
   public showGuestCont = false;
   public numberOfGuest = 1;
   public numberOfRoom = 1;
@@ -32,7 +31,16 @@ export class HomePanelComponent implements OnInit {
   /*_______________________________________*/
 
   ngOnInit(): void {
-    this.filteredCity = this.control.valueChanges.pipe(
+
+    this.searchAccommodationForm = this.formBuilder.group({
+      city: new FormControl('', Validators.required),
+      startDate: new FormControl(new Date(), Validators.required),
+      endDate: new FormControl(new Date(), Validators.required),
+      numberOfGuest: new FormControl(1, Validators.required),
+      numberOfRoom: new FormControl(1, Validators.required)
+    });
+
+    this.filteredCity = this.searchAccommodationForm.controls.city.valueChanges.pipe(
       startWith(''),
       map(value => {
         if (value.toString().length > 1) {
@@ -40,60 +48,52 @@ export class HomePanelComponent implements OnInit {
         }
       })
     );
-
-    this.datePickerForm = this.formBuilder.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
-    });
   }
 
   constructor(private formBuilder: FormBuilder,
               private datePipe: DatePipe,
               private router: Router,
-              private mapService: MapService) {
+              private mapService: MapService,
+              private rentalService: RentalService,
+              private sharedDataService: SharedDataService) {
   }
 
-  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*/
   public search(): void {
-/*    console.log(this.choseCity);
-    console.log(this.datePipe.transform(this.datePickerForm.value.startDate, 'dd-MM-yyyy'));
-    console.log(this.datePipe.transform(this.datePickerForm.value.endDate, 'dd-MM-yyyy'));
-    console.log(this.numberOfGuest);
-    console.log(this.numberOfRoom);
-    this.router.navigate(['/rentals']);*/
+    console.log(this.searchAccommodationForm.getRawValue());
 
-  }
+    if (this.searchAccommodationForm.valid) {
+      this.rentalService.searchOfferBycChosenData(this.searchAccommodationForm.getRawValue()).subscribe(
+        value => {
+          this.sharedDataService.setOfferFoundByParameters(value);
+          console.log(value);
+        }, error => console.log(error),
+        () => this.router.navigate(['/rentals']));
 
-  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*/
-  selectedCity(value: string): void {
-    this.choseCity = value;
-  }
-
-  showGuestsContent(): void {
-    if (this.showGuestCont) {
-      this.showGuestCont = false;
-    } else {
-      this.showGuestCont = true;
     }
   }
 
+  showGuestsContent(): void {
+    this.showGuestCont = !this.showGuestCont;
+  }
+
   increaseGuestNumber(): void {
-    this.numberOfGuest++;
+    this.searchAccommodationForm.controls.numberOfGuest.setValue(++this.numberOfGuest);
+
   }
 
   decreaseGuestNumber(): void {
     if (this.numberOfGuest > 1) {
-      this.numberOfGuest--;
+      this.searchAccommodationForm.controls.numberOfGuest.setValue(--this.numberOfGuest);
     }
   }
 
   increaseRoomNumber(): void {
-    this.numberOfRoom++;
+    this.searchAccommodationForm.controls.numberOfRoom.setValue(++this.numberOfRoom);
   }
 
   decreaseRoomNumber(): void {
     if (this.numberOfRoom > 1) {
-      this.numberOfRoom--;
+      this.searchAccommodationForm.controls.numberOfRoom.setValue(--this.numberOfRoom);
     }
   }
   private filter(value: string): string[] {
@@ -109,7 +109,6 @@ export class HomePanelComponent implements OnInit {
   private suggestionCity(value: string): void {
     this.mapService.getAddress(value)
       .subscribe(response => {
-
         let listTempHolder: any = [];
         const responseProperties = Object.keys(response);
 

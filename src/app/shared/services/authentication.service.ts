@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {HostListener, Injectable, OnDestroy} from '@angular/core';
 import { HttpCustomService } from '../../util/http-custom.service';
 import { LoginData } from '../models/user/login.model';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import { SharedDataService } from './shared-data.service';
 import { map } from 'rxjs/operators';
 import { JwtToken } from '../authentication/jwt-token.model';
@@ -10,16 +10,18 @@ import { ObjectUtils } from '../../util/object.utils';
 import { AccountService } from './account.service';
 import { BasicAccount } from '../models/user/basic-account.model';
 import { User } from '../models/user/user.model';
-import { Observable } from 'rxjs';
+import {Observable, Subscriber, Subscription} from 'rxjs';
 import { SignupData } from '../models/user/signup-data.model.ts';
+import {LocalizedString} from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService{
 
   private readonly authURL: string = '/auth';
+  private routerEvent: Subscription;
 
   constructor(
     private http: HttpCustomService,
@@ -31,39 +33,39 @@ export class AuthenticationService {
   }
 
   public fetchUserIfTokenExists(): void {
+
     const loggedName = JwtManagerService.getNickFromToken();
 
-    if (ObjectUtils.isDefined(loggedName)) {
-      if (JwtManagerService.getExpirationTimeValid()) {
-        this.accountService.getAccountByNickAndSaveInShared(loggedName);
-      } else {
-        this.sighOut();
-      }
+    if (ObjectUtils.isDefined(loggedName) && JwtManagerService.getExpirationTimeValid()) {
+      this.accountService.getAccountByNickAndSaveInShared(loggedName);
     } else {
-      this.router.navigate(['/home']);
+      localStorage.clear();
     }
   }
 
   public sighIn(loginData: LoginData): void {
     const url: string = this.authURL + '/signin';
+    loginData.login = loginData.login.toLowerCase();
 
     this.http.post(url, loginData)
       .pipe(map(data => Object.assign(new JwtToken(), data)))
       .subscribe((token: JwtToken) => {
-        if (ObjectUtils.isDefined(token)) {
-          JwtManagerService.saveToken(token);
-          this.accountService.getAccountByNickAndSaveInShared(JwtManagerService.getNickFromToken());
+          if (ObjectUtils.isDefined(token)) {
+            JwtManagerService.saveToken(token);
+          }
+        }, error => {
+          console.error('Acquisition token fail\n' + error);
+        }, () => {
+          this.router.navigate(['/home']);
         }
-      }, error => {
-        console.error('Acquisition token fail\n' + error);
-      }, () => {
-        this.router.navigate(['/home']);
-      }
-      );
+      ).add(() => {
+      this.accountService.getAccountByNickAndSaveInShared(JwtManagerService.getNickFromToken());
+    });
   }
 
   public signup(accountData: BasicAccount, userData: User): Observable<boolean> {
     const url: string = this.authURL + '/signup';
+    accountData._login = accountData._login.toLowerCase();
     const dataForSighUp: SignupData = new SignupData(accountData, userData);
     console.log(dataForSighUp);
 

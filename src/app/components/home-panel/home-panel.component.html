@@ -4,24 +4,23 @@
 
     <div class="section-image"></div>
 
-    <form class="search-box">
-      <div class="row accommodation">
+    <form [formGroup]="searchAccommodationForm" class="search-box" >
+      <div class="row search-offer-data-box">
 
         <div class="col-xs-12 col-lg-4 place-search">
           <input type="text"
                  placeholder=" Search place"
-                 [formControl]="control"
+                 formControlName="city"
                  [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCity($event.option.value)">
-            <mat-option *ngFor="let city of filteredCity | async" [value]="city">
-              {{city}}
-            </mat-option>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let city of filteredCity | async" [value]="city">{{city}}</mat-option>
           </mat-autocomplete>
         </div>
 
         <div class="col-xs-12 col-lg-4 dates-picker">
           <mat-form-field appearance="fill">
-            <mat-date-range-input [formGroup]="datePickerForm" [rangePicker]="picker">
+            <mat-date-range-input [rangePicker]="picker"
+                                  [min]="searchAccommodationForm.controls.startDate">
               <input matStartDate formControlName="startDate" placeholder="Start date">
               <input matEndDate formControlName="endDate" placeholder="End date">
             </mat-date-range-input>

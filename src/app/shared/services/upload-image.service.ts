@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class UploadImageService {
 
-  private readonly UPLOUD_URL: string = '/upload';
+  private readonly UPLOAD_URL: string = '/upload';
 
   constructor(private sharedService: SharedDataService,
               private http: HttpCustomService,
@@ -21,7 +21,7 @@ export class UploadImageService {
 
   public multiplesFilesUpload(data: Array<File>, city: string): Observable<HttpEvent<{}>> {
 
-    const url: string = 'api' + this.UPLOUD_URL + '/upload-multiple-files/' +
+    const url: string = 'api' + this.UPLOAD_URL + '/upload-multiple-files/' +
       this.sharedService.getLoggedAccount().getValue()._id + '/' + city;
 
     const formData = new FormData();
@@ -36,4 +36,11 @@ export class UploadImageService {
 
     return this.https.request(newRequest);
   }
+
+  public deleteStoredImage(path: string): void{
+    const url: string = this.UPLOAD_URL + '/delete-image/' + path;
+
+    this.http.delete(url).subscribe();
+  }
+
 }
