@@ -4,14 +4,11 @@
 
     <div class="section-image"></div>
 
-    <form [formGroup]="searchAccommodationForm" class="search-box" >
+    <form [formGroup]="searchAccommodationForm" class="search-box">
       <div class="row search-offer-data-box">
 
         <div class="col-xs-12 col-lg-4 place-search">
-          <input type="text"
-                 placeholder=" Search place"
-                 formControlName="city"
-                 [matAutocomplete]="auto">
+          <input type="text" placeholder=" Search place" formControlName="city" [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let city of filteredCity | async" [value]="city">{{city}}</mat-option>
           </mat-autocomplete>
@@ -19,8 +16,7 @@
 
         <div class="col-xs-12 col-lg-4 dates-picker">
           <mat-form-field appearance="fill">
-            <mat-date-range-input [rangePicker]="picker"
-                                  [min]="searchAccommodationForm.controls.startDate">
+            <mat-date-range-input [rangePicker]="picker" [min]="minDateInDatePicker">
               <input matStartDate formControlName="startDate" placeholder="Start date">
               <input matEndDate formControlName="endDate" placeholder="End date">
             </mat-date-range-input>
@@ -31,10 +27,10 @@
 
         <div class="col-xs-12 col-lg-3 input-group-guest">
           <button type="submit" class="show-guest-wrapper-button" (click)="showGuestsContent()">
-            <div *ngIf="numberOfGuest > 1 && numberOfRoom > 1">{{numberOfGuest}} Guests ·  {{numberOfRoom}} Rooms</div>
-            <div *ngIf="numberOfGuest > 1 && numberOfRoom == 1">{{numberOfGuest}} Guests ·  {{numberOfRoom}} Room</div>
-            <div *ngIf="numberOfGuest == 1 && numberOfRoom > 1">{{numberOfGuest}} Guest ·  {{numberOfRoom}} Rooms</div>
-            <div *ngIf="numberOfGuest == 1 && numberOfRoom == 1">{{numberOfGuest}} Guest ·  {{numberOfRoom}} Room</div>
+            <div *ngIf="numberOfGuest > 1 && numberOfRoom > 1">{{numberOfGuest}} Guests · {{numberOfRoom}} Rooms</div>
+            <div *ngIf="numberOfGuest > 1 && numberOfRoom == 1">{{numberOfGuest}} Guests · {{numberOfRoom}} Room</div>
+            <div *ngIf="numberOfGuest == 1 && numberOfRoom > 1">{{numberOfGuest}} Guest · {{numberOfRoom}} Rooms</div>
+            <div *ngIf="numberOfGuest == 1 && numberOfRoom == 1">{{numberOfGuest}} Guest · {{numberOfRoom}} Room</div>
           </button>
           <div class="row">
             <div class="col-md-12 guest-input-container" *ngIf="showGuestCont" (mouseleave)="showGuestCont=false">
@@ -82,5 +78,7 @@
       </div>
     </form>
   </section>
+
 </div>
+
 

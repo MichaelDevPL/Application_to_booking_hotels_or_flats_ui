@@ -1,0 +1,46 @@
+<div class="container" *ngIf = "isLoaded">
+  <div class="row">
+    <div class="col-xs-12 col-lg-6 data-box">
+      <label for="name">Name: </label>
+      <input type="text" name="name" id="name" [value]="userData.name" (input)="userData.name = onChangeEvent($event)" [disabled]="!changingUserData">
+    </div>
+
+    <div class="col-xs-12 col-lg-6 data-box">
+      <label for="surname">Surname: </label>
+      <input type="text" name="surname" id="surname" [value]="userData.surname" (input)="userData.surname = onChangeEvent($event)" [disabled]="!changingUserData">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-lg-6 data-box">
+      <label for="phone">Phone: </label>
+      <input type="tel" name="phone" id="phone" [value]="userData.phone" (input)="userData.phone = onChangeEvent($event)" [disabled]="!changingUserData">
+    </div>
+
+    <div class="col-xs-12 col-lg-6 data-box">
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email" [value]="userData.email" (input)="userData.email = onChangeEvent($event)" [disabled]="!changingUserData">
+    </div>
+  </div>
+
+<!--  <div class="row">
+      <div class="col-xs-12 col-lg-6 data-box">
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" value="**********"  [disabled]="!changingUserData">
+      </div>
+
+      <div class="col-xs-12 col-lg-6 data-box">
+        <label for="password-confirm">confirm Password: </label>
+        <input type="password" name="password-confirm" id="password-confirm" value="**********" [disabled]="!changingUserData">
+      </div>
+  </div>-->
+
+  <div class="row">
+    <div class="col-lg-12 button-box">
+      <button *ngIf="!changingUserData" class="btn btn-primary button-submit" (click)="onChangingData()">Update profile</button>
+      <button *ngIf="changingUserData" class="btn btn-primary button-submit" (click)="cancelChange()">Cancel</button>
+      <button class="btn btn-primary button-save" *ngIf="changingUserData" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>
+

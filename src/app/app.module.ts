@@ -23,8 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RentalModule } from './components/rental/rental.module';
 import { UserModule } from './components/user/user.module';
-import {MatInputModule} from '@angular/material/input';
-import {MapService} from './shared/services/map.service';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -32,24 +31,24 @@ import {MapService} from './shared/services/map.service';
     HeaderPanelComponent,
     HomePanelComponent,
     LoginPanelComponent,
-    SignupPanelComponent,
+    SignupPanelComponent
   ],
-    imports: [
-        RentalModule,
-        UserModule,
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        NgbModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        NoopAnimationsModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatDatepickerModule,
-        MatInputModule
-    ],
+  imports: [
+    RentalModule,
+    UserModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    NoopAnimationsModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule
+  ],
   providers: [
     AccountService,
     UserService,

@@ -1,12 +1,16 @@
-<a routerLink="{{count}}">
-  <div class="card bwm-card">
-    <div> Item number: {{ count }} </div>
-    <img class="card-img-top" src="{{rental.image}}" alt="">
-    <div class="card-block">
-      <h6 class="card-subtitle">{{rental.title}} &#183; {{rental.city}}</h6>
-      <h4 class="card-title">{{rental.description}}</h4>
-      <p class="card-text">${{rental.dailyRate}} per Night &#183; Free Cancellation</p>
-      <a href="#" class="card-link">More Info</a>
+<div class="container" routerLink="{{offer.id}}">
+  <div class="offer-box">
+    <div class="offer-img">
+      <img src="{{loadImage()}}" alt="">
+      <div class="price">
+        <p> &#36;{{offer.dailyRate}}</p>
+      </div>
+      <ngb-rating class="rating" [max]="5" [(rate)]="starRating" [readonly]="true">
+      </ngb-rating>
+    </div>
+    <div class="offer-details">
+      <h4>{{offer.title}}</h4>
+      <span class="description">{{offer.description.slice(0, 200)}}...</span>
     </div>
   </div>
-</a>
+</div>

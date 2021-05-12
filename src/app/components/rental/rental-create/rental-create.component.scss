@@ -17,6 +17,27 @@
     width: 100%;
   }
 
+  input, textarea {
+    border: 2px solid #eee;
+    border-radius:10px;
+    padding: 6px;
+  }
+
+  select {
+    border: 2px solid #eee;
+    border-radius:10px;
+    padding: 6px;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
+    -webkit-appearance: none;
+    background-position-x: 98%;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline:none;
+    border: 2px solid #aaa;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  }
+
   .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
@@ -49,6 +70,8 @@
     img {
       border: 2px solid white;
       border-radius: 0.8rem !important;
+      width: 180px;
+      height: 100px;
     }
 
     img:hover {

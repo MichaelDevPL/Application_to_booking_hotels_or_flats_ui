@@ -1,8 +1,25 @@
 <section id="rentalListing">
-  <h1 class="title">Your Home All Around the World</h1>
+  <h1 class="title">{{setTitle((offersObservable | async)?.length)}}</h1>
+  <hr>
   <div class="row">
-    <div class='col-md-3 col-xs-6' *ngFor="let rental of rentals, let i = index">
-      <app-rental-list-item [rental]="rental" [count] = "i" ></app-rental-list-item>
+    <div class="select-sort col-sm-12">
+      <span>Sort By: </span>
+      <select [(ngModel)]="orderBy">
+        <option value="dailyRate">Price High to Low</option>
+        <option value="-dailyRate">Price Low to High</option>
+        <option value="clientAverageGrades">Ratting</option>
+      </select>
     </div>
+  </div>
+  <div *ngIf="offersObservable | async as offers" class="row">
+    <div *ngFor="let offer of offers | offersOderBy: orderBy | slice: 0 : endSliceNumberOfDisplayOffers , let i = index"
+         class='col-sm-12 col-md-6 col-lg-6 col-xl-4'>
+      <app-rental-list-item [count]="i" [offer]="offer"></app-rental-list-item>
+    </div>
+  </div>
+
+  <div class="row increase-offers-limit-row">
+    <button (click)="showMoreOffers()" class="increase-offers-limit col-md-6">Show more offers
+    </button>
   </div>
 </section>

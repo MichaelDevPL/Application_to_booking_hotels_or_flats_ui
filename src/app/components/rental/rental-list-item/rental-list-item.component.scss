@@ -1,28 +1,62 @@
-.bwm-card {
-  border: none;
-  padding-top: 3rem;
+.container {
+  box-shadow: 0 0 10px 1px rgba(37, 73, 214, 0.18);
+  margin-bottom: 30px;
+  padding: 0;
 
-  .card-block {
-    padding-top: 8px;
+  .offer-img {
+    position: relative;
 
-    .card-subtitle {
-      margin: 0;
-      font-weight: 500;
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #16861a;
+    .fa {
+      font-size: 15px;
+      color: #ff5722
     }
 
-    .card-title {
-      font-size: 19px;
-      margin: 3px 0;
+    img {
+      width: 100%;
     }
 
-    .card-text {
-      font-size: 14px;
-      font-weight: 300;
-      color: #7e7e7e;
-      margin-bottom: 0;
+    .price {
+      width: 50px;
+      height: 50px;
+      background: #ff5722;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 50%;
+      text-align: center;
+      padding-top: 13px;
+      box-shadow: 0 0 10px 1px rgb(37, 73, 214, 0.18);
+      position: absolute;
+      left: 20px;
+      bottom: -25px;
+    }
+
+    .rating {
+      color: #ff6b00;
+      padding: 3px;
+      float: right;
+      background: rgba(255, 255, 255, 0.9);
+      bottom: -1px;
+      right: 0;
+      position: absolute;
+      font-size: 1.6rem;
     }
   }
+
+  .offer-details {
+    padding: 30px 20px 20px 20px;
+    text-align: justify;
+
+    h4 {
+      font-weight: 500;
+      margin-top: 5px;
+    }
+
+    .description {
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+.container:focus {
+  outline: none;
 }

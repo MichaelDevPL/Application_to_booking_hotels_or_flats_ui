@@ -8,7 +8,9 @@ import {RentalCategory} from '../../../shared/enums/rental-category.enum';
 import {ObjectUtils} from '../../../util/object.utils';
 import {RentalService} from '../../../shared/services/rental.service';
 import {SharedDataService} from '../../../shared/services/shared-data.service';
-import {delay} from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {MapService} from '../../../shared/services/map.service';
 
 @Component({
   selector: 'app-rental-create',
@@ -17,24 +19,32 @@ import {delay} from 'rxjs/operators';
 })
 export class RentalCreateComponent implements OnInit {
 
+  /*_______________________________________*/
+  public filteredCity: Observable<string[]>;
+  /*_______________________________________*/
   public selectedImages: Array<File> = new Array<File>();
   public storedImagesPath: Array<string> = new Array<string>();
   public urls = new Map();
-
   public rentalForm: FormGroup;
   public categories = Object.values(RentalCategory).filter(
     (value) => typeof value === 'string'
   );
-
   public submitted = false;
+  private cityListHolder: any = [];
 
   constructor(
     private sharedDataService: SharedDataService,
     private uploadImageService: UploadImageService,
     private rentalService: RentalService,
     private formBuilder: FormBuilder,
+    private mapService: MapService,
     private router: Router
   ) {
+  }
+
+  // convenience getter for easy access to form fields
+  get getFromForm(): any {
+    return this.rentalForm.controls;
   }
 
   ngOnInit(): void {
@@ -47,9 +57,18 @@ export class RentalCreateComponent implements OnInit {
       category: ['', Validators.required],
       rentalImages: this.formBuilder.array([]),
       bedrooms: ['', Validators.required],
+      quests: ['', Validators.required],
       dailyRate: ['', Validators.required]
     });
 
+    this.filteredCity = this.rentalForm.controls.city.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        if (value.toString().length > 1) {
+          return this.filter(value);
+        }
+      })
+    );
   }
 
   /*Add images path as array to rentalForm*/
@@ -65,11 +84,6 @@ export class RentalCreateComponent implements OnInit {
 
   addNewImage(imageFormGroup: FormGroup): any {
     return this.images().push(imageFormGroup);
-  }
-
-  // convenience getter for easy access to form fields
-  get getFromForm(): any {
-    return this.rentalForm.controls;
   }
 
   /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -120,7 +134,6 @@ export class RentalCreateComponent implements OnInit {
       .multiplesFilesUpload(Array.from(this.selectedImages), this.rentalForm.getRawValue().city)
       .subscribe((event) => {
         if (event instanceof HttpResponse) {
-          console.log('File successfully uploaded!');
           Object.assign(
             new Array<RentalImage>(),
             event.body
@@ -130,12 +143,11 @@ export class RentalCreateComponent implements OnInit {
           });
         }
       }).add(() => {
-      console.log(this.rentalForm.getRawValue());
       this.rentalService.createNewRentalOffer(this.rentalForm.getRawValue())
         .subscribe((value) => {
           if (value) {
-           this.router.navigate(['/home']);
-          } else{
+            this.router.navigate(['/home']);
+          } else {
             const errorMessage = `Problem occurred !!!\n Please try again`;
             window.alert(errorMessage);
 
@@ -154,8 +166,56 @@ export class RentalCreateComponent implements OnInit {
     this.urls.delete(key);
   }
 
+  public search(): void {
+    if (this.rentalForm.valid) {
+      this.rentalService.searchOfferByChosenData(this.rentalForm.getRawValue()).subscribe(
+        value => {
+          this.sharedDataService.setOfferFoundByParameters(value);
+        }, error => console.log(error),
+        () => this.router.navigate(['/rentals']));
+
+    }
+  }
+
+  public normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+
   submit(): void {
     this.submitted = true;
-    if (this.rentalForm.valid && this.selectedImages.length > 0 ) { this.upload(); }
+    if (this.rentalForm.valid && this.selectedImages.length > 0) {
+      this.upload();
+    }
+  }
+
+  private filter(value: string): string[] {
+    const filterValue = this.normalizeValue(value);
+    this.suggestionCity(filterValue);
+    return this.cityListHolder.filter(city => this.normalizeValue(city).includes(filterValue));
+  }
+
+  private suggestionCity(value: string): void {
+    this.mapService.getAddress(value)
+      .subscribe(response => {
+        let listTempHolder: any = [];
+        const responseProperties = Object.keys(response);
+
+        for (const prop of responseProperties) {
+          listTempHolder.push(response[prop]);
+        }
+
+        listTempHolder = listTempHolder[0];
+        this.cityListHolder = [];
+
+        if (ObjectUtils.isDefined(listTempHolder)) {
+          for (const city of listTempHolder) {
+            if (city.matchLevel === 'city') {
+              this.cityListHolder.push(city.address.city + ', ' + city.address.country);
+            }
+          }
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 }

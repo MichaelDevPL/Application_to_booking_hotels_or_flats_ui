@@ -23,6 +23,7 @@ export class HomePanelComponent implements OnInit {
   public showGuestCont = false;
   public numberOfGuest = 1;
   public numberOfRoom = 1;
+  public minDateInDatePicker = new Date();
 
   /*_______________________________________*/
 
@@ -35,7 +36,7 @@ export class HomePanelComponent implements OnInit {
     this.searchAccommodationForm = this.formBuilder.group({
       city: new FormControl('', Validators.required),
       startDate: new FormControl(new Date(), Validators.required),
-      endDate: new FormControl(new Date(), Validators.required),
+      endDate: new FormControl(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), Validators.required),
       numberOfGuest: new FormControl(1, Validators.required),
       numberOfRoom: new FormControl(1, Validators.required)
     });
@@ -51,7 +52,6 @@ export class HomePanelComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder,
-              private datePipe: DatePipe,
               private router: Router,
               private mapService: MapService,
               private rentalService: RentalService,
@@ -59,13 +59,10 @@ export class HomePanelComponent implements OnInit {
   }
 
   public search(): void {
-    console.log(this.searchAccommodationForm.getRawValue());
-
     if (this.searchAccommodationForm.valid) {
-      this.rentalService.searchOfferBycChosenData(this.searchAccommodationForm.getRawValue()).subscribe(
+      this.rentalService.searchOfferByChosenData(this.searchAccommodationForm.getRawValue()).subscribe(
         value => {
           this.sharedDataService.setOfferFoundByParameters(value);
-          console.log(value);
         }, error => console.log(error),
         () => this.router.navigate(['/rentals']));
 

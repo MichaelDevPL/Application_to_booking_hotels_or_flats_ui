@@ -1,12 +1,14 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark secondary-color">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <button routerLink="/home" class="btn btn-link btn-header navButton">
+        <button class="btn btn-link btn-header navButton" routerLink="/home" data-toggle="collapse"
+          data-target=".navbar-collapse.show">
           <i class="fa fa-home fa-lg"> Home</i>
         </button>
       </li>
@@ -15,7 +17,7 @@
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
         <button *ngIf="!isLoggedPanelVisible()" routerLink="/rental-create"
-                class="btn btn-link btn-header afterLoggedButton">
+          class="btn btn-link btn-header afterLoggedButton" data-toggle="collapse" data-target=".navbar-collapse.show">
           <i class="fa fa-sign-out-alt fa-lg "> Rental Create</i>
         </button>
       </li>
@@ -23,21 +25,23 @@
 
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
-        <button *ngIf="!isLoggedPanelVisible()" class="btn btn-link btn-header afterLoggedButton"
-                routerLink="/user/{{accountData._login}}">
-          <i class="fa fa-user fa-lg"> {{accountData._login.toUpperCase()}}</i>
+        <button *ngIf="!isLoggedPanelVisible()" class="btn btn-link btn-header afterLoggedButton" routerLink="/account/settings"
+          data-toggle="collapse" data-target=".navbar-collapse.show">
+          <i class="fa fa-user fa-lg"> {{accountData.login.toUpperCase()}}</i>
         </button>
-        <button *ngIf="isLoggedPanelVisible()" routerLink="/signup" class="btn btn-link btn-header navButton">
+        <button *ngIf="isLoggedPanelVisible()" routerLink="/signup" class="btn btn-link btn-header navButton"
+          data-toggle="collapse" data-target=".navbar-collapse.show">
           <i class="fa fa-lg"> Sign up</i>
         </button>
       </li>
 
       <li class="nav-item">
-        <button *ngIf="!isLoggedPanelVisible()" (click)="auth.sighOut()"
-                class="btn btn-link btn-header afterLoggedButton">
+        <button *ngIf="!isLoggedPanelVisible()" (click)="signOut()" class="btn btn-link btn-header afterLoggedButton"
+          data-toggle="collapse" data-target=".navbar-collapse.show">
           <i class="fa fa-sign-out-alt fa-lg "> Sign out</i>
         </button>
-        <button *ngIf="isLoggedPanelVisible()" routerLink="/login" class="btn btn-link btn-header navButton">
+        <button *ngIf="isLoggedPanelVisible()" routerLink="/login" class="btn btn-link btn-header navButton"
+          data-toggle="collapse" data-target=".navbar-collapse.show">
           <i class="fa fa-lg"> Log in</i>
         </button>
       </li>

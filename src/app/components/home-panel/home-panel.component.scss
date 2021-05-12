@@ -73,11 +73,9 @@
 
             .mat-form-field-flex {
               padding: 0.25em 0 0.45em 2.5em !important;
-              background-color: #ffffff;
+              background: none;
 
               .mat-form-field-infix {
-                padding: 0.10em 0 0.85em 0 !important;
-
                 .mat-date-range-input {
                   .mat-date-range-input-container {
                     .mat-date-range-input-start-wrapper {

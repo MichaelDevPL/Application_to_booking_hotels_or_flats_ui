@@ -7,6 +7,13 @@ import {RentalComponent} from './rental.component';
 import {RentalListItemComponent} from './rental-list-item/rental-list-item.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { GalleryCarouselComponent } from './rental-detail/gallery-carousel/gallery-carousel.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { OffersOderByPipe } from './pipes/offers-oder-by.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {path: 'rentals', component: RentalComponent,
@@ -23,14 +30,21 @@ const routes: Routes = [
     RentalListItemComponent,
     RentalDetailComponent,
     RentalComponent,
-    RentalCreateComponent
+    RentalCreateComponent,
+    GalleryCarouselComponent,
+    OffersOderByPipe
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        ScrollingModule,
+        MatSelectModule
+    ],
   providers: []
 })
 export class RentalModule { }

@@ -25,6 +25,13 @@ export class JwtManagerService {
     return !helper.isTokenExpired(this.getToken());
   }
 
+  public static allowToRefreshToken(): boolean {
+    const helper = new JwtHelperService();
+    const remainTimeToExpiration = helper.getTokenExpirationDate(this.getToken()).getTime() - new Date().getTime();
+
+    return  0 < remainTimeToExpiration && remainTimeToExpiration < 300000; // 5min before expiration
+  }
+
   public static getNickFromToken(): string {
     const helper = new JwtHelperService();
     const token = JwtManagerService.getToken();
@@ -46,7 +53,6 @@ export class JwtManagerService {
   }
 
   public static cleanTokenCache(): void {
-    localStorage.removeItem('jwtToken');
+    localStorage.clear();
   }
-
 }

@@ -1,0 +1,204 @@
+<div class="container">
+  <h2 class="title">{{ offer.title }}
+    <ngb-rating [(rate)]="starRating" [max]="5" [readonly]="true" class="rating"></ngb-rating>
+  </h2>
+  <hr>
+  <div class="row">
+    <section class="description-section col-md-12 col-lg-6">
+      <div class="description">
+        <p [innerHTML]="offer.description" class="text-medium"></p>
+      </div>
+    </section>
+
+    <section class="gallery-section col-md-12 col-lg-6">
+      <div class="gallery">
+        <div *ngFor="let image of offer.rentalImages; let i = index" class="image">
+          <img (click)="selectedImage = i" [src]="loadImageByPath(image.path)" alt="">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="row">
+    <div class="offer-details col-lg-12 col-xl-6">
+      <div class="room-details">
+        <h6>Type:</h6>
+        <div class="value-box">
+          <span class="material-icons">home</span>
+          <span class="value">{{offer.category}}</span>
+        </div>
+      </div>
+
+      <div class="room-details">
+        <h6>Beds:</h6>
+        <div class="value-box">
+          <span class="material-icons">bed</span>
+          <span class="value">{{offer.bedrooms}}</span>
+        </div>
+      </div>
+
+      <div class="room-details">
+        <h6>Quests:</h6>
+        <div class="value-box">
+          <span class="material-icons">people_alt</span>
+          <span class="value">{{offer.quests}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-detail col-lg-12 col-xl-6">
+      <div class="room-details">
+        <h6>Location:</h6>
+        <div class="value-box">
+          <span class="material-icons">location_on</span>
+          <span class="value">{{offer.address}}</span>
+        </div>
+      </div>
+
+      <div class="room-details">
+        <h6>Price per day:</h6>
+        <div class="value-box">
+          <span class="material-icons">payment</span>
+          <span class="value">{{offer.dailyRate}} &#36;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <section class="reservation-confirmation-section col-md-12">
+      <div class="booking-date">
+        <h5>Check in - Check out</h5>
+        <div class="date">
+          <span class="material-icons">calendar_today</span>
+          <span> {{userTypedData.startDate}}</span>
+          <span> - </span>
+          <span>{{userTypedData.endDate}}</span>
+        </div>
+      </div>
+
+      <div class="calculated-price">
+        <h5>Price for {{calculateDiff()}} {{calculateDiff() > 1 ? 'days' : 'day'}}</h5>
+        <div class="final-price">
+          <span>{{calculateDiff() * offer.dailyRate}} &#36;</span>
+        </div>
+      </div>
+
+      <div class="submission-revision">
+        <button (click)="submit()" class="reserve-button">Reserve</button>
+      </div>
+
+    </section>
+  </div>
+
+  <app-gallery-carousel (closerCarousel)="selectedImage = null" *ngIf="selectedImage !== null"
+                        [images]="offer.rentalImages" [selectedImage]="selectedImage">
+  </app-gallery-carousel>
+
+  <div class="row">
+    <section *ngIf="offer.clientReviews != undefined" class="comments-section">
+      <div class="heading">
+        <div class="ratting-part">
+          <div class="average-rating">
+            <h2>{{starRating}}</h2>
+            <ngb-rating [(rate)]="starRating" [max]="5" [readonly]="true" class="rating"></ngb-rating>
+            <p>Average Rating</p>
+          </div>
+          <div class="loader-rating">
+            <div class="row justify-content-around">
+              <div class="progress">
+                <div [ngStyle]="{width: countStarRating(5) + '%'}" aria-valuemax="100" aria-valuemin="0"
+                     aria-valuenow="75" class="progress-bar" role="progressbar"></div>
+              </div>
+              <div>
+                <ngb-rating [max]="5" [rate]="5" [readonly]="true" class="rating"></ngb-rating>
+                <span>{{countStarRating(5)}}%</span><br>
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="progress">
+                <div [ngStyle]="{width: countStarRating(4) + '%'}" aria-valuemax="100" aria-valuemin="0"
+                     aria-valuenow="75" class="progress-bar" role="progressbar"></div>
+              </div>
+              <div>
+                <ngb-rating [max]="5" [rate]="4" [readonly]="true" class="rating"></ngb-rating>
+                <span>{{countStarRating(4)}}%</span><br>
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="progress">
+                <div [ngStyle]="{width: countStarRating(3) + '%'}" aria-valuemax="100" aria-valuemin="0"
+                     aria-valuenow="75" class="progress-bar" role="progressbar"></div>
+              </div>
+              <div>
+                <ngb-rating [max]="5" [rate]="3" [readonly]="true" class="rating"></ngb-rating>
+                <span>{{countStarRating(3)}}%</span><br>
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="progress">
+                <div [ngStyle]="{width: countStarRating(2) + '%'}" aria-valuemax="100" aria-valuemin="0"
+                     aria-valuenow="75" class="progress-bar" role="progressbar"></div>
+              </div>
+              <div>
+                <ngb-rating [max]="5" [rate]="2" [readonly]="true" class="rating"></ngb-rating>
+                <span>{{countStarRating(2)}}%</span><br>
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="progress">
+                <div [ngStyle]="{width: countStarRating(1) + '%'}" aria-valuemax="100" aria-valuemin="0"
+                     aria-valuenow="75" class="progress-bar" role="progressbar"></div>
+              </div>
+              <div>
+                <ngb-rating [max]="5" [rate]="1" [readonly]="true" class="rating"></ngb-rating>
+                <span>{{countStarRating(1)}}%</span><br>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngFor="let review of offer.clientReviews | slice:0 : endSliceNumberOfDisplayReviews, let i = index">
+        <div class="review-block">
+          <div class="row">
+            <div class="col-sm-3 col-md-2">
+              <div class="img-rounded"></div>
+              <div class="review-block-name"><a href="#">{{review.accountNick}}</a></div>
+              <div class="review-block-date">{{review.createdAt}}<br/>{{calculateDaysPassed(review.createdAt)}} day ago
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <ngb-rating [(rate)]="review.starRating" [max]="5" [readonly]="true" class="rating"></ngb-rating>
+              <div class="review-block-description">{{review.comment}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <button (click)="increaseEndNumberOfDisplayReviews()" *ngIf="endSliceNumberOfDisplayReviews < offer.clientReviews.length"
+                class="increase-comments-limit col-md-6">Show more comments
+        </button>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="status-upload" *ngIf="accountNick != null">
+            <form [formGroup]="reviewFrom">
+              <textarea formControlName="comment" class="text-area" placeholder="Enter your message hear"></textarea>
+              <button (click)="saveReview()" class="btn btn-success submit-comment-button" type="submit">
+                <i class="fa fa-share"></i>Post</button>
+              <ngb-rating formControlName="starRating" [max]="5" [readonly]="false" class="new-review-rating"></ngb-rating>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+</div>
+

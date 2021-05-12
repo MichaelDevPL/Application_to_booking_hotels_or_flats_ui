@@ -1,9 +1,82 @@
 #rentalListing {
-  margin: 3rem 10vw;
+  padding-top: 50px;
+  width: 90%;
+  margin: 0 auto;
 
   .title {
+    width: 100%;
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 20px;
+    text-align: center;
   }
+
+  .select-sort {
+    padding: 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+
+    span {
+      line-height: 40px;
+      padding-right: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    select {
+      width: 250px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      padding: 6px;
+      background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
+      -webkit-appearance: none;
+      background-position-x: 98%;
+
+      option {
+        width: 100%;
+        min-width: 15ch;
+        max-width: 30ch;
+        border: 1px solid var(--select-border);
+        border-radius: 0.25em;
+        padding: 0.25em 0.5em;
+        font-size: 1rem;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: #fff;
+        background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+
+      }
+    }
+
+    select:focus {
+      outline: none;
+    }
+  }
+
+  .increase-offers-limit-row {
+    justify-content: center;
+    align-items: center;
+
+    .increase-offers-limit {
+      font-size: 1.2rem;
+      font-weight: 500;
+      width: 80%;
+      color: #FFF;
+      background-color: #0071C2;
+      height: 40px;
+      border: none;
+      box-shadow: 1px 3px 2px 1px #0061c2;
+      border-radius: 4px;
+      margin-top: 30px;
+      margin-bottom: 50px;
+
+      @media(max-width: 576px) {
+        height: 50px;
+        font-size: 1rem;
+      }
+    }
+  }
+
 }

@@ -32,19 +32,22 @@ nav {
     .navbar-toggler-icon {
       background-image: url('../../shared/icons/iconfinder-icon.svg');
 
-      :focus, :active {
+      :focus {
         border: none;
         outline: none;
       }
     }
   }
 
-    .navbar-toggler:active {
-      background: #818180;
-    }
-
-    button:hover, button:focus {
-      text-decoration-line: underline;
-      box-shadow: 2px 4px 10px 4px #818180;
-    }
+  button:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+    text-decoration-line: underline;
+    box-shadow: 2px 4px 10px 4px #818180;
   }
+
+  button:focus {
+    text-decoration-line: underline;
+    box-shadow: 2px 4px 10px 4px #818180;
+  }
+}

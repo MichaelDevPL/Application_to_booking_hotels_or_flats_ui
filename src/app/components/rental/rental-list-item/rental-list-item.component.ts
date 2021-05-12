@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {UploadImageService} from '../../../shared/services/upload-image.service';
 
 @Component({
   selector: 'app-rental-list-item',
@@ -8,11 +9,19 @@ import {Component, Input, OnInit} from '@angular/core';
 export class RentalListItemComponent implements OnInit {
 
   @Input() count: number;
-  @Input() rental: any;
+  @Input() offer: any;
+  public starRating: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private imageService: UploadImageService
+  ) {
   }
 
+  ngOnInit(): void {
+    this.starRating = this.offer.clientAverageGrades;
+  }
+
+  public loadImage(): string {
+    return this.imageService.loadImage(this.offer.rentalImages[0].path);
+  }
 }

@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {SharedDataService} from './shared-data.service';
 import {HttpCustomService} from '../../util/http-custom.service';
 import {Router} from '@angular/router';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class UploadImageService {
   public multiplesFilesUpload(data: Array<File>, city: string): Observable<HttpEvent<{}>> {
 
     const url: string = 'api' + this.UPLOAD_URL + '/upload-multiple-files/' +
-      this.sharedService.getLoggedAccount().getValue()._id + '/' + city;
+      this.sharedService.getLoggedAccount().getValue().id + '/' + city;
 
     const formData = new FormData();
 
@@ -35,6 +36,10 @@ export class UploadImageService {
     });
 
     return this.https.request(newRequest);
+  }
+
+  public loadImage(path: string): string{
+    return '/api' + this.UPLOAD_URL + '/download?filePath=' + path;
   }
 
   public deleteStoredImage(path: string): void{

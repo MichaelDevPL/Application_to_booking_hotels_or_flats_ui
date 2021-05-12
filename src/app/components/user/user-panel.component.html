@@ -1,35 +1,31 @@
-<nav class="navbar navbar-expand-lg navbar-dark secondary-color">
-  <ul class="navbar-nav mx-auto w-auto justify-content-center">
+<nav class="navbar navbar-expand-md navbar-dark secondary-color">
+  <ul class="navbar-nav mx-auto w-auto flex-wrap flex-row justify-content-center">
 
     <li class="nav-item">
-      <button class="btn btn-link btn-header navButton">
+      <button class="btn btn-link btn-header navButton" [routerLink]="['settings']">
         <i class="fa fa-id-badge fa-lg"> Settings </i>
       </button>
     </li>
 
     <li class="nav-item">
-      <button class="btn btn-link btn-header navButton">
+      <button class="btn btn-link btn-header navButton" [routerLink]="['bookings']">
         <i class="fa fa-hotel fa-lg"> Bookings </i>
       </button>
     </li>
 
     <li class="nav-item">
-      <button class="btn btn-link btn-header navButton">
-        <i class="fa fa-save fa-lg"> Save </i>
-      </button>
-    </li>
-
-    <li class="nav-item">
-      <button class="btn btn-link btn-header navButton">
+      <button class="btn btn-link btn-header navButton" [routerLink]="['reviews']">
         <i class="fa fa-star fa-lg"> My Reviews </i>
       </button>
     </li>
 
     <li class="nav-item">
-      <button class="btn btn-link btn-header navButton">
+      <button class="btn btn-link btn-header navButton" [routerLink]="['history']">
         <i class="fa fa-history fa-lg"> History </i>
       </button>
     </li>
 
   </ul>
 </nav>
+
+<router-outlet></router-outlet>
