@@ -12,7 +12,7 @@ export class RentalOffer {
   category: RentalCategory;
   rentalImages: RentalImage[];
   bedrooms: number;
-  quests: number;
+  guests: number;
   dailyRate: number;
   createdAt?: string;
   offerOwnerId?: bigint;

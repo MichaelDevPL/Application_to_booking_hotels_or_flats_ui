@@ -9,6 +9,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SharedDataService} from '../../../shared/services/shared-data.service';
 import {JwtManagerService} from '../../../shared/authentication/jwt-manager.service';
 import {formatDate} from '@angular/common';
+import {ReviewService} from '../../../shared/services/review.service';
 
 @Component({
   selector: 'app-rental-detail',
@@ -31,6 +32,7 @@ export class RentalDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private rentalService: RentalService,
+    private reviewService: ReviewService,
     private uploadService: UploadImageService,
     private shareData: SharedDataService,
     @Inject(LOCALE_ID) private locale: string
@@ -52,8 +54,8 @@ export class RentalDetailComponent implements OnInit {
     this.userTypedData = JSON.parse(localStorage.getItem('parameters-to-search-offer'));
 
     this.reserveFrom = new FormBuilder().group({
-      startDate: new FormControl(this.userTypedData.startDate, Validators.required),
-      endDate: new FormControl(this.userTypedData.endDate, Validators.required),
+      startDate: new FormControl(this.userTypedData == null ? '' : this.userTypedData.startDate, Validators.required),
+      endDate: new FormControl(this.userTypedData == null ? '' : this.userTypedData.endDate, Validators.required),
       price: new FormControl('', Validators.required),
       clientId: new FormControl('', Validators.required),
       offerId: new FormControl('', Validators.required)
@@ -100,8 +102,9 @@ export class RentalDetailComponent implements OnInit {
     this.reserveFrom.get('offerId').setValue(this.offer.id);
 
     if (this.reserveFrom.valid && window.confirm('Save reserve?')) {
-      this.rentalService.saveReserve(this.reserveFrom.getRawValue()).subscribe();
-      return this.router.navigate(['/account/bookings']);
+      this.rentalService.createReserve(this.reserveFrom.getRawValue()).subscribe().add( ()  => {
+        this.router.navigate(['/account/bookings']);
+      });
     }
   }
 
@@ -123,7 +126,7 @@ export class RentalDetailComponent implements OnInit {
   public saveReview(): void {
     this.reviewFrom.get('rentalOfferId').setValue(this.offer.id);
     if (this.reviewFrom.valid) {
-      this.rentalService.createReview(this.reviewFrom.getRawValue()).subscribe().add( () => {
+      this.reviewService.createReview(this.reviewFrom.getRawValue()).subscribe().add( () => {
         window.location.reload();
       });
     }

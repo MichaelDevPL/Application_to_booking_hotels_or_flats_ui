@@ -57,7 +57,7 @@ export class RentalCreateComponent implements OnInit {
       category: ['', Validators.required],
       rentalImages: this.formBuilder.array([]),
       bedrooms: ['', Validators.required],
-      quests: ['', Validators.required],
+      guests: ['', Validators.required],
       dailyRate: ['', Validators.required]
     });
 

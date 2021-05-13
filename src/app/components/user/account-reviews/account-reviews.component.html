@@ -1,1 +1,26 @@
-<p>account-reviews works!</p>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Content of the Opinion</th>
+        <th>Rating</th>
+        <th>Create At</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="allReviewBelongToAccountObservable | async as reviews">
+      <tr *ngFor="let review of reviews, let i = index">
+        <td (click)="showOffer(review.rentalOfferId)">{{i+1}}</td>
+        <td (click)="showOffer(review.rentalOfferId)">{{review.comment}}</td>
+        <td (click)="showOffer(review.rentalOfferId)">{{review.starRating}}</td>
+        <td (click)="showOffer(review.rentalOfferId)">{{review.createdAt}}</td>
+        <td>
+          <a class="delete" data-toggle="tooltip" (click)="deleteReview(review.id)" title="Delete"><i class="material-icons">&#xE5C9;</i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

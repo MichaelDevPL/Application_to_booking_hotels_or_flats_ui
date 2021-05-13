@@ -3,14 +3,11 @@ import {SharedDataService} from './shared-data.service';
 import {HttpCustomService} from '../../util/http-custom.service';
 import {Router} from '@angular/router';
 import {RentalOffer} from '../models/rental/rental-offer.model';
-import {EMPTY, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {formatDate} from '@angular/common';
 import {DataToSearchOffersModel} from '../models/rental/data-to-search-offers.model';
 import {RentalOfferFoundByTheSelectedParametersModel} from '../models/rental/rental-offer-found-by-the-selected-parameters.model';
 import {ReserveOfferModel} from '../models/rental/reserve-offer-model';
-import {ClientReview} from '../models/rental/client-review.model';
-import {BookedOfferModel} from '../models/rental/booked-offer.model';
-import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -51,22 +48,10 @@ export class RentalService {
     return this.http.get(url);
   }
 
-  public saveReserve(newReserve: ReserveOfferModel): Observable<void> {
-    const url: string = this.UPLOAD_URL + '/save-reserve';
+  public createReserve(newReserve: ReserveOfferModel): Observable<void> {
+    const url: string = this.UPLOAD_URL + '/create-reservation';
 
     return this.http.post(url, newReserve);
-  }
-
-  public createReview(newReview: ClientReview): Observable<void> {
-    const url: string = this.UPLOAD_URL + '/create-review';
-
-    return this.http.post(url, newReview);
-  }
-
-  public getAllBookedOfferByAccountId(accountID: bigint): Observable<Array<BookedOfferModel>> {
-    const url: string = this.UPLOAD_URL + '/all-booked-offer-by-user/' + accountID;
-
-    return this.http.get(url);
   }
 }
 

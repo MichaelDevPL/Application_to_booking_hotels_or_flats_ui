@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="row increase-offers-limit-row">
+  <div *ngIf="(offersObservable | async)?.length > endSliceNumberOfDisplayOffers" class="row increase-offers-limit-row">
     <button (click)="showMoreOffers()" class="increase-offers-limit col-md-6">Show more offers
     </button>
   </div>

@@ -4,7 +4,7 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
+        <th>Title</th>
         <th>Start Date</th>
         <th>End date</th>
         <th>Price</th>
@@ -14,14 +14,14 @@
       </thead>
       <tbody *ngIf="bookedOfferObservable | async as bookedOffers">
       <tr *ngFor="let offer of bookedOffers, let i = index">
-        <td (click)="showOffer(offer.rentalOfferID)">{{i}}</td>
+        <td (click)="showOffer(offer.rentalOfferID)">{{i+1}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.offerTittle}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.startRentDate}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.endRentDate}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">1{{offer.price}}$</td>
         <td (click)="showOffer(offer.rentalOfferID)">Active</td>
         <td>
-          <a class="delete" data-toggle="tooltip" (click)="deleteBookedOffer(offer.id)" title="Delete"><i class="material-icons">&#xE5C9;</i></a>
+          <a *ngIf="allowResignation(offer.startRentDate)" class="delete" data-toggle="tooltip" (click)="deleteBookedOffer(offer.id)" title="Delete"><i class="material-icons">&#xE5C9;</i></a>
         </td>
       </tr>
       </tbody>

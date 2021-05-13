@@ -38,10 +38,10 @@
       </div>
 
       <div class="room-details">
-        <h6>Quests:</h6>
+        <h6>Guests:</h6>
         <div class="value-box">
           <span class="material-icons">people_alt</span>
-          <span class="value">{{offer.quests}}</span>
+          <span class="value">{{offer.guests}}</span>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@
 
 
   <div class="row">
-    <section class="reservation-confirmation-section col-md-12">
+    <section *ngIf="userTypedData != null" class="reservation-confirmation-section col-md-12">
       <div class="booking-date">
         <h5>Check in - Check out</h5>
         <div class="date">

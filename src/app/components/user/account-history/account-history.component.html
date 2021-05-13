@@ -1,1 +1,26 @@
-<p>account-history works!</p>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Start Date</th>
+        <th>End date</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="historyBookedOfferObservable | async as bookedOffers">
+      <tr *ngFor="let offer of bookedOffers, let i = index">
+        <td (click)="showOffer(offer.rentalOfferID)">{{i+1}}</td>
+        <td (click)="showOffer(offer.rentalOfferID)">{{offer.offerTittle}}</td>
+        <td (click)="showOffer(offer.rentalOfferID)">{{offer.startRentDate}}</td>
+        <td (click)="showOffer(offer.rentalOfferID)">{{offer.endRentDate}}</td>
+        <td (click)="showOffer(offer.rentalOfferID)">1{{offer.price}}$</td>
+        <td (click)="showOffer(offer.rentalOfferID)">Finalized</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

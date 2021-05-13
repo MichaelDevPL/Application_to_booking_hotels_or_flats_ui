@@ -4,6 +4,7 @@ import {SharedDataService} from '../../../shared/services/shared-data.service';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
+import {ScheduleService} from '../../../shared/services/schedule.service';
 
 @Component({
   selector: 'app-account-bookings',
@@ -12,10 +13,10 @@ import {EMPTY} from 'rxjs';
 })
 export class AccountBookingsComponent implements OnInit {
 
-  public bookedOfferObservable = this.rentalService.getAllBookedOfferByAccountId(this.shareData.getLoggedAccount().getValue().id);
+  public bookedOfferObservable = this.scheduleService.getAllUserReservations(this.shareData.getLoggedAccount().getValue().id);
 
   constructor(
-    private rentalService: RentalService,
+    private scheduleService: ScheduleService,
     private shareData: SharedDataService,
     private router: Router
   ) {
@@ -26,11 +27,21 @@ export class AccountBookingsComponent implements OnInit {
 
   showOffer(offerId: bigint): void{
     const path = '/rentals/' + offerId;
+    localStorage.setItem('parameters-to-search-offer', null);
     this.router.navigate([path]);
   }
 
   deleteBookedOffer(id: bigint): void {
-    console.log('deleted');
+    this.scheduleService.deleteReservation(id).subscribe().add( () => {
+      window.location.reload();
+    });
+  }
+
+  allowResignation(date: string): boolean{
+    const oneDay = 24 * 60 * 60 * 1000;
+    const startDate = new Date(date);
+
+    return Math.floor((new Date().getTime() - startDate.getTime()) / oneDay) < -3;
   }
 
 }
