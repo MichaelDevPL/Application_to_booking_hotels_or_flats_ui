@@ -89,7 +89,7 @@ export class RentalDetailComponent implements OnInit {
 
     const daysPassed = Math.floor((today.getTime() - createAt.getTime()) / oneDay);
 
-    return daysPassed >= 0 ? daysPassed : daysPassed * (-1);
+    return daysPassed >= 0 ? daysPassed : 0;
   }
 
   public submit(): any {

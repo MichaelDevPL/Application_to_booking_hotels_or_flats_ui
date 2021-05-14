@@ -17,8 +17,8 @@ export class ScheduleService {
   ) {
   }
 
-  public deleteReservation(bookedID: bigint): Observable<void> {
-    const url: string = this.UPLOAD_URL + '/delete-reservation/' + bookedID;
+  public deleteReservation(reservationId: bigint): Observable<void> {
+    const url: string = this.UPLOAD_URL + '/delete-reservation/' + reservationId;
 
     return this.http.delete(url);
   }
