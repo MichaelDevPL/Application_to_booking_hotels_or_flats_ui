@@ -10,6 +10,8 @@ import {SharedDataService} from '../../../shared/services/shared-data.service';
 import {JwtManagerService} from '../../../shared/authentication/jwt-manager.service';
 import {formatDate} from '@angular/common';
 import {ReviewService} from '../../../shared/services/review.service';
+import {UserService} from '../../../shared/services/user.service';
+import {UserContactDataModel} from '../../../shared/models/rental/user-contact-data.model';
 
 @Component({
   selector: 'app-rental-detail',
@@ -19,6 +21,7 @@ import {ReviewService} from '../../../shared/services/review.service';
 export class RentalDetailComponent implements OnInit {
 
   public offer: RentalOffer = new RentalOffer();
+  public offerOwnerContactData: UserContactDataModel = new UserContactDataModel();
   public selectedImage: number = null;
   public userTypedData: DataToSearchOffersModel;
   public reserveFrom: FormGroup;
@@ -35,8 +38,10 @@ export class RentalDetailComponent implements OnInit {
     private reviewService: ReviewService,
     private uploadService: UploadImageService,
     private shareData: SharedDataService,
+    private userService: UserService,
     @Inject(LOCALE_ID) private locale: string
   ) {
+
     this.rentalService.getOfferById(this.route.snapshot.paramMap.get('id'))
       .pipe(
         map(value => Object.assign(RentalOffer, value)),
@@ -47,7 +52,13 @@ export class RentalDetailComponent implements OnInit {
           this.starRating = Number((value.clientReviews.map(star => star.starRating)
             .reduce((previousValue, currentValue) => currentValue += previousValue) / value.clientReviews.length).toFixed(2));
         }
-      }, error => console.log(error));
+      }, error => console.log(error)).add(() => {
+        if (JwtManagerService.getExpirationTimeValid()) {
+          this.userService.userContactData(this.offer.offerOwnerId).subscribe(value => {
+            this.offerOwnerContactData = value;
+          });
+       }
+    });
   }
 
   ngOnInit(): void {
@@ -66,7 +77,7 @@ export class RentalDetailComponent implements OnInit {
       comment: new FormControl('', Validators.required),
       createdAt: new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', this.locale), Validators.required),
       accountNick: new FormControl(this.accountNick, Validators.required),
-      rentalOfferId: new FormControl( null, Validators.required)
+      rentalOfferId: new FormControl(null, Validators.required)
     });
 
   }
@@ -102,7 +113,7 @@ export class RentalDetailComponent implements OnInit {
     this.reserveFrom.get('offerId').setValue(this.offer.id);
 
     if (this.reserveFrom.valid && window.confirm('Save reserve?')) {
-      this.rentalService.createReserve(this.reserveFrom.getRawValue()).subscribe().add( ()  => {
+      this.rentalService.createReserve(this.reserveFrom.getRawValue()).subscribe().add(() => {
         this.router.navigate(['/account/bookings']);
       });
     }
@@ -126,7 +137,7 @@ export class RentalDetailComponent implements OnInit {
   public saveReview(): void {
     this.reviewFrom.get('rentalOfferId').setValue(this.offer.id);
     if (this.reviewFrom.valid) {
-      this.reviewService.createReview(this.reviewFrom.getRawValue()).subscribe().add( () => {
+      this.reviewService.createReview(this.reviewFrom.getRawValue()).subscribe().add(() => {
         window.location.reload();
       });
     }

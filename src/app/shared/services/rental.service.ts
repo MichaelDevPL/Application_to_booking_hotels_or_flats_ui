@@ -8,6 +8,9 @@ import {formatDate} from '@angular/common';
 import {DataToSearchOffersModel} from '../models/rental/data-to-search-offers.model';
 import {RentalOfferFoundByTheSelectedParametersModel} from '../models/rental/rental-offer-found-by-the-selected-parameters.model';
 import {ReserveOfferModel} from '../models/rental/reserve-offer-model';
+import {CreateOfferResponseModel} from '../models/rental/create-offer-response.model';
+import {RentalOfferViewToUserManageModel} from '../models/rental/rental-offer-view-to-user-manage.model';
+import {List} from 'postcss/lib/list';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +25,18 @@ export class RentalService {
               @Inject(LOCALE_ID) private locale: string) {
   }
 
-  public createNewRentalOffer(newRentalOffer: RentalOffer): Observable<boolean> {
+  public createNewRentalOffer(newRentalOffer: RentalOffer): Observable<CreateOfferResponseModel> {
     const url: string = this.UPLOAD_URL + '/create';
     newRentalOffer.offerOwnerId = this.sharedService.getLoggedAccount().getValue().id;
     newRentalOffer.createdAt = formatDate(Date.now(), 'yyyy-MM-dd', this.locale);
 
     return this.http.post(url, newRentalOffer);
+  }
+
+  public updateRentalOffer( rentalOffer: RentalOffer): void {
+    const url: string = this.UPLOAD_URL + '/update';
+
+    this.http.put(url, rentalOffer).subscribe();
   }
 
   public searchOfferByChosenData(dataToSearchOffersModel: DataToSearchOffersModel)
@@ -48,10 +57,28 @@ export class RentalService {
     return this.http.get(url);
   }
 
+  public getOfferBelongToAccount(accountId: bigint): Observable<Array<RentalOfferViewToUserManageModel>> {
+    const url: string = this.UPLOAD_URL + '/user/' + accountId;
+
+    return this.http.get(url);
+  }
+
   public createReserve(newReserve: ReserveOfferModel): Observable<void> {
     const url: string = this.UPLOAD_URL + '/create-reservation';
 
     return this.http.post(url, newReserve);
+  }
+
+  public deleteOffer(offerId: bigint): Observable<void> {
+    const url: string = this.UPLOAD_URL + '/delete/' + offerId;
+
+    return this.http.delete(url);
+  }
+
+  public deleteImage(imageId: bigint): void {
+    const url: string = this.UPLOAD_URL + '/deleteImage/' + imageId;
+
+    this.http.delete(url).subscribe();
   }
 }
 

@@ -4,7 +4,6 @@ import {Injectable} from '@angular/core';
 import {SharedDataService} from './shared-data.service';
 import {HttpCustomService} from '../../util/http-custom.service';
 import {Router} from '@angular/router';
-import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root'

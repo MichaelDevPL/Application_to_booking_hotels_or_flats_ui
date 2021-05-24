@@ -1,0 +1,19 @@
+<div class="client-contact" (click)="close()">
+  <div class="contact-box" (click)="OnEvent($event)">
+    <div class="client-data" *ngIf="contactData != undefined">
+      <p class="contact-name">
+        <i class="material-icons">&#xe55a;</i>
+        {{contactData.name + ' ' + contactData.surname}}
+      </p>
+      <p class="contact-phone">
+        <i class="material-icons">&#xe324;</i>
+        {{contactData.phone}}
+      </p>
+      <p class="contact-email">
+        <i class="material-icons">&#xe0be;</i>
+        {{contactData.email}}
+      </p>
+    </div>
+    <span class="carousel-close" tabindex="3" (click)="close()"></span>
+  </div>
+</div>

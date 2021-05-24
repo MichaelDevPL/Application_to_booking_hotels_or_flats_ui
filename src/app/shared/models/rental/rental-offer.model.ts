@@ -1,5 +1,5 @@
 import { RentalCategory } from '../../enums/rental-category.enum';
-import { RentalCalendar } from './rental-calendar.model';
+import { RentalScheduleModel} from './rental-schedule.model';
 import { RentalImage } from './rental-image.model';
 import {ClientReview} from './client-review.model';
 
@@ -16,6 +16,6 @@ export class RentalOffer {
   dailyRate: number;
   createdAt?: string;
   offerOwnerId?: bigint;
-  rentalSchedule?: RentalCalendar[];
+  rentalSchedule?: RentalScheduleModel[];
   clientReviews?: ClientReview[];
 }

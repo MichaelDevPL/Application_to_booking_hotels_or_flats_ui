@@ -1,0 +1,99 @@
+<div *ngIf="offerIsDefine()" class="container">
+  <section class="loader-rental-offer">
+    <form [formGroup]="rentalEditForm">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <p>Title: </p>
+            <label>
+              <input class="form-control" formControlName="title" type="text" placeholder=" Tile">
+            </label>
+            <div *ngIf="submitted && getFromForm.title.invalid" class="alert alert-danger">
+              <a class="close" data-dismiss="alert" href="#"></a>Tittle required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <p>Guest: </p>
+            <label>
+              <input class="form-control" formControlName="guests" placeholder=" Number Of Guests" type="text">
+            </label>
+            <div *ngIf="submitted && getFromForm.guests.invalid" class="alert alert-danger">
+              <a class="close" data-dismiss="alert" href="#"></a>Number of guests required
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <p>Description: </p>
+            <label>
+                <textarea class="form-control" formControlName="description" placeholder=" Description" rows="6"
+                          wrap="soft"></textarea>
+            </label>
+            <div *ngIf="submitted && getFromForm.description.invalid" class="alert alert-danger">
+              <a class="close" data-dismiss="alert" href="#"></a>Description required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <p>Daily Rate: </p>
+            <label>
+              <input class="form-control" formControlName="dailyRate" placeholder=" Daily Rate" type="text">
+            </label>
+            <div *ngIf="submitted && getFromForm.dailyRate.invalid" class="alert alert-danger">
+              <a class="close" data-dismiss="alert" href="#"></a>Daily rate required
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="images-view col-md-12">
+          <div class="form-group">
+            <img (click)="deleteImage(i, image)" formArrayName="rentalImages" *ngFor="let image of getFromForm.rentalImages.value, let i = index"
+                 [src]="loadImage(image.path)"
+                 alt="" class="image">
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="upload-file-part">
+      <div class="row">
+
+        <div class="upload-btn-wrapper vertical-center col-md-12 col-lg-2">
+          <button class="btn">Upload a files</button>
+          <input (change)="selectNewImageFile($event)" type="file" name="files[]" multiple>
+        </div>
+
+        <div class="preview-images col-md-12 col-lg-10">
+          <img (dblclick)="deleteNewSelectedImages(image.key)" *ngFor="let image of previewNewImages | keyvalue" [src]="image.value"
+               alt="" class="image">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="vertical-center">
+    <button (click)="updateOffer()" class="btn btn-primary button-upload col-xs-12 col-sm-12 col-md-4"
+            type="submit">
+      <span> Update </span>
+    </button>
+  </div>
+</div>

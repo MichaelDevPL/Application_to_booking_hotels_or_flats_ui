@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {RentalService} from '../../../shared/services/rental.service';
 import {SharedDataService} from '../../../shared/services/shared-data.service';
 import {Router} from '@angular/router';
-import {catchError} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
 import {ScheduleService} from '../../../shared/services/schedule.service';
 
 @Component({
@@ -41,7 +38,7 @@ export class AccountBookingsComponent implements OnInit {
     const oneDay = 24 * 60 * 60 * 1000;
     const startDate = new Date(date);
 
-    return Math.floor((new Date().getTime() - startDate.getTime()) / oneDay) < -3;
+    return Math.floor((new Date().getTime() - startDate.getTime()) / oneDay) < -2;
   }
 
 }

@@ -1,5 +1,6 @@
 <div class="container">
   <section>
+
     <div class="panel-heading">
       <h3 class="panel-title"><strong>New Rental Offer</strong></h3>
       <hr>
@@ -9,10 +10,11 @@
       <form [formGroup]="rentalForm">
 
         <div class="row">
+
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <input type="text" formControlName="title" class="form-control" placeholder=" Title">
+                <input class="form-control" formControlName="title" placeholder=" Title" type="text">
               </label>
               <div *ngIf="submitted && getFromForm.title.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>Tittle required
@@ -23,7 +25,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <textarea formControlName="description" class="form-control" placeholder=" Description" rows="6"
+                <textarea class="form-control" formControlName="description" placeholder=" Description" rows="6"
                           wrap="soft"></textarea>
               </label>
               <div *ngIf="submitted && getFromForm.description.invalid" class="alert alert-danger">
@@ -31,13 +33,15 @@
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="row">
+
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <input type="text" formControlName="address" class="form-control" placeholder=" Address">
+                <input class="form-control" formControlName="address" placeholder=" Address" type="text">
               </label>
               <div *ngIf="submitted && getFromForm.address.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>Address required
@@ -48,28 +52,30 @@
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-              <input type="text"
-                     class="form-control"
-                     placeholder=" City"
-                     formControlName="city"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let city of filteredCity | async" [value]="city">{{city}}</mat-option>
-              </mat-autocomplete>
+                <input [matAutocomplete]="auto"
+                       class="form-control"
+                       formControlName="city"
+                       placeholder=" City"
+                       type="text">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let city of filteredCity | async" [value]="city">{{city}}</mat-option>
+                </mat-autocomplete>
               </label>
               <div *ngIf="submitted && getFromForm.city.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>City required
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="row">
+
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <select formControlName="category" class="form-control">
-                  <option value="" selected disabled hidden >--Please choose an option--</option>
+                <select class="form-control" formControlName="category">
+                  <option disabled hidden selected value="">--Please choose an option--</option>
                   <option *ngFor="let category of categories" [ngValue]="category">
                     {{ category.toString().toLowerCase() }}
                   </option>
@@ -84,13 +90,14 @@
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <input type="text" formControlName="bedrooms" class="form-control" placeholder=" Bedrooms">
+                <input class="form-control" formControlName="bedrooms" placeholder=" Bedrooms" type="text">
               </label>
               <div *ngIf="submitted && getFromForm.bedrooms.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>Bedrooms required
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="row">
@@ -98,7 +105,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <input type="text" formControlName="guests" class="form-control" placeholder=" Number Of Guests">
+                <input class="form-control" formControlName="guests" placeholder=" Number Of Guests" type="text">
               </label>
               <div *ngIf="submitted && getFromForm.guests.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>Number of guests required
@@ -109,35 +116,39 @@
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
               <label>
-                <input type="text" formControlName="dailyRate" class="form-control" placeholder=" Daily Rate">
+                <input class="form-control" formControlName="dailyRate" placeholder=" Daily Rate" type="text">
               </label>
               <div *ngIf="submitted && getFromForm.dailyRate.invalid" class="alert alert-danger">
                 <a class="close" data-dismiss="alert" href="#"></a>Daily rate required
               </div>
             </div>
           </div>
+
         </div>
 
       </form>
 
       <div class="upload-file-part">
         <div class="row">
+
           <div class="upload-btn-wrapper vertical-center col-xs-12 col-sm-12 col-md-12 col-lg-2">
-            <button class="btn">Upload a file</button>
-            <input type="file" (change)="selectFile($event)" multiple>
+            <button class="btn">Upload a files</button>
+            <input (change)="selectFile($event)" type="file" name="files[]" multiple>
           </div>
+
           <div class="preview-images col-xs-12 col-sm-12 col-md-12 col-lg-10">
-              <img *ngFor="let url of urls | keyvalue" [src]="url.value" class="image"
-                   alt="" (dblclick)="deleteImageFromSelected(url.key)">
+            <img (dblclick)="deleteImageFromSelected(url.key)" *ngFor="let url of urls | keyvalue" [src]="url.value"
+                 alt="" class="image">
           </div>
+
         </div>
       </div>
     </div>
   </section>
 
   <div class="vertical-center">
-    <button type="submit" class="btn btn-primary button-submit col-xs-12 col-sm-12 col-md-4"
-            (click)="submit()">
+    <button (click)="submit()" class="btn btn-primary button-submit col-xs-12 col-sm-12 col-md-4"
+            type="submit">
       <span> Create </span>
     </button>
   </div>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="offer.title !== undefined">
   <h2 class="title">{{ offer.title }}
     <ngb-rating [(rate)]="starRating" [max]="5" [readonly]="true" class="rating"></ngb-rating>
   </h2>
@@ -60,6 +60,17 @@
         <div class="value-box">
           <span class="material-icons">payment</span>
           <span class="value">{{offer.dailyRate}} &#36;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-5">
+      <div *ngIf="accountNick != null" class="contact-data">
+        <h6>Contact: </h6>
+        <div class="contact-data-box">
+          <p class="contact-name">{{offerOwnerContactData.name + " " + offerOwnerContactData.surname}}</p>
+          <p class="contact-phone">{{"Phone number: " + offerOwnerContactData.phone}}</p>
+          <p class="contact-email">{{"Email: " + offerOwnerContactData.email}}</p>
         </div>
       </div>
     </div>
@@ -157,7 +168,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
 

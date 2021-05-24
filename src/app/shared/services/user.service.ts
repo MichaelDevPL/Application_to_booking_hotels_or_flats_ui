@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {SharedDataService} from './shared-data.service';
 import {HttpCustomService} from '../../util/http-custom.service';
-import {AuthenticationService} from './authentication.service';
-import {Router} from '@angular/router';
 import {User} from '../models/user/user.model';
 import {Observable} from 'rxjs';
+import {UserContactDataModel} from '../models/rental/user-contact-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,6 @@ export class UserService {
   constructor(
     private sharedService: SharedDataService,
     private http: HttpCustomService,
-    private router: Router
   ) {
   }
 
@@ -24,6 +22,12 @@ export class UserService {
     const url: string = this.USERS_URL + '/upload';
 
     return this.http.post(url, user);
+  }
+
+  public userContactData(accountId: bigint): Observable<UserContactDataModel> {
+    const url: string = this.USERS_URL + '/contact-data/' + accountId;
+
+    return this.http.get(url);
   }
 
 }

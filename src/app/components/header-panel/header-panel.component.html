@@ -16,9 +16,18 @@
 
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
-        <button *ngIf="!isLoggedPanelVisible()" routerLink="/rental-create"
+        <button *ngIf="!isLoggedPanelVisible() && premiumAccount" routerLink="/user-rentals"
+                class="btn btn-link btn-header afterLoggedButton" data-toggle="collapse" data-target=".navbar-collapse.show">
+          <i class="fa fa-sign-out-alt fa-lg "> My Rental Offers</i>
+        </button>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item">
+        <button *ngIf="!isLoggedPanelVisible() && premiumAccount" routerLink="/rental-create"
           class="btn btn-link btn-header afterLoggedButton" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <i class="fa fa-sign-out-alt fa-lg "> Rental Create</i>
+          <i class="fa fa-sign-out-alt fa-lg "> Rental Offer Create</i>
         </button>
       </li>
     </ul>

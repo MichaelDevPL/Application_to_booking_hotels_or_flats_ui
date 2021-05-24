@@ -3,8 +3,6 @@ import {RentalImage} from '../../../../shared/models/rental/rental-image.model';
 import {UploadImageService} from '../../../../shared/services/upload-image.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
-
-
 @Component({
   selector: 'app-gallery-carousel',
   templateUrl: './gallery-carousel.component.html',

@@ -6,7 +6,7 @@
         <th>#</th>
         <th>Title</th>
         <th>Start Date</th>
-        <th>End date</th>
+        <th>End Date</th>
         <th>Price</th>
         <th>Status</th>
         <th>Action</th>
@@ -18,7 +18,7 @@
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.offerTittle}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.startRentDate}}</td>
         <td (click)="showOffer(offer.rentalOfferID)">{{offer.endRentDate}}</td>
-        <td (click)="showOffer(offer.rentalOfferID)">1{{offer.price}}$</td>
+        <td (click)="showOffer(offer.rentalOfferID)">{{offer.price}}$</td>
         <td (click)="showOffer(offer.rentalOfferID)">Active</td>
         <td>
           <a *ngIf="allowResignation(offer.startRentDate)" class="delete" data-toggle="tooltip" (click)="deleteBookedOffer(offer.id)" title="Delete"><i class="material-icons">&#xE5C9;</i></a>

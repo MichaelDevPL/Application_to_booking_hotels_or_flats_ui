@@ -12,6 +12,7 @@ import {BasicAccount} from '../models/user/basic-account.model';
 import {User} from '../models/user/user.model';
 import {EMPTY, Observable, Subscription} from 'rxjs';
 import {SignupData} from '../models/user/signup-data.model.ts';
+import {SignupResponseModel} from '../models/user/signup-response.model';
 
 
 @Injectable({
@@ -70,7 +71,7 @@ export class AuthenticationService {
     });
   }
 
-  public signup(accountData: BasicAccount, userData: User): Observable<boolean> {
+  public signup(accountData: BasicAccount, userData: User): Observable<SignupResponseModel> {
     const url: string = this.authURL + '/signup';
     accountData.login = accountData.login.toLowerCase();
     const dataForSighUp: SignupData = new SignupData(accountData, userData);

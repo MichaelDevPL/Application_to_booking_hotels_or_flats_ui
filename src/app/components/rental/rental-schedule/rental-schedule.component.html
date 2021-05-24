@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Price</th>
+        <th>Client Contact</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="rentalOfferScheduleObservable | async as schedule">
+      <tr *ngFor="let reservation of schedule, let i = index,">
+        <td>{{i + 1}}</td>
+        <td>{{reservation.startRentDate}}</td>
+        <td>{{reservation.endRentDate}}</td>
+        <td>{{reservation.price}}$</td>
+        <td>
+          <a class="loadClientContact" data-toggle="tooltip" (click)="loadClientContact(reservation.clientId)" title="Client"><i class="material-icons">&#xE0BA;</i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <app-client-contact (closerContact)="clientId = null" *ngIf="clientId !== null"
+                        [clientId]="clientId">
+    </app-client-contact>
+  </div>
+</div>

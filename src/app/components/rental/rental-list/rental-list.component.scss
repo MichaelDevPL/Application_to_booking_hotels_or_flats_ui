@@ -30,9 +30,15 @@
       border: 2px solid #eee;
       border-radius: 10px;
       padding: 6px;
+      font-size: 1rem;
       background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
       -webkit-appearance: none;
       background-position-x: 98%;
+
+      @media (max-width: 576px) {
+        width: 160px;
+        font-size: 0.85rem;
+      }
 
       option {
         width: 100%;

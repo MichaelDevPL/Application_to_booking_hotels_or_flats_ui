@@ -5,4 +5,6 @@ export class BasicAccount{
   login: string;
   password?: string;
   role: AccountRole;
+  questionToRemindPassword?: string;
+  answerToRemindPassword?: string;
 }

@@ -145,8 +145,10 @@ export class RentalCreateComponent implements OnInit {
       }).add(() => {
       this.rentalService.createNewRentalOffer(this.rentalForm.getRawValue())
         .subscribe((value) => {
-          if (value) {
-            this.router.navigate(['/home']);
+          if (value.createdSuccessfully) {
+            const path = '/rentals/' + value.offerId;
+            localStorage.setItem('parameters-to-search-offer', null);
+            this.router.navigate([path]);
           } else {
             const errorMessage = `Problem occurred !!!\n Please try again`;
             window.alert(errorMessage);

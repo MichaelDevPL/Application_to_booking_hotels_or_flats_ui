@@ -40,7 +40,45 @@
                 <input type="password" #passwordConfValue (input)="passwordConfirm=passwordConfValue.value"
                        class="form-control" placeholder=" Password">
                 <div *ngIf="submitted && !passwordMatchValid" class="alert alert-danger">
-                  <a class="close" data-dismiss="alert" href="#">×</a>Password is match
+                  <a class="close" data-dismiss="alert" href="#">×</a>Password isn't match
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="questionToRemindPassword" class="form-control" placeholder=" Question To Remind Password">
+                <div *ngIf="submitted && getFromAccountDataForm.questionToRemindPassword.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Question To Remind Password is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="answerToRemindPassword" class="form-control" placeholder=" Answer To Remind Password">
+                <div *ngIf="submitted && getFromAccountDataForm.answerToRemindPassword.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#">×</a>Answer To Remind Password is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="form-group">
+                <label>
+                  <select formControlName="role" class="form-control">
+                    <option value="" selected disabled hidden >--Please choose account type--</option>
+                    <option *ngFor="let role of accountTypes" [ngValue]="role">
+                      {{ role.toString().replace("ROLE_CLIENT_", "") }}
+                    </option>
+                  </select>
+                </label>
+                <div *ngIf="submitted && getFromAccountDataForm.role.invalid" class="alert alert-danger">
+                  <a class="close" data-dismiss="alert" href="#"></a>Please choose an option
                 </div>
               </div>
             </div>

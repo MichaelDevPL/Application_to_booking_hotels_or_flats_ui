@@ -3,6 +3,7 @@ import {SharedDataService} from './shared-data.service';
 import {HttpCustomService} from '../../util/http-custom.service';
 import {Observable} from 'rxjs';
 import {BookedOfferModel} from '../models/rental/booked-offer.model';
+import {RentalScheduleModel} from '../models/rental/rental-schedule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,12 @@ export class ScheduleService {
 
   public getAllUserReservations(accountId: bigint): Observable<Array<BookedOfferModel>> {
     const url: string = this.UPLOAD_URL + '/user-reservations/' + accountId;
+
+    return this.http.get(url);
+  }
+
+  public getRentalOfferSchedule(rentalOfferId: string): Observable<Array<RentalScheduleModel>> {
+    const url: string = this.UPLOAD_URL + '/' + rentalOfferId;
 
     return this.http.get(url);
   }

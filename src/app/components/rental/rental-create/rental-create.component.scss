@@ -42,10 +42,13 @@
     position: relative;
     overflow: hidden;
     display: inline-block;
+    padding-bottom: 50px;
+    padding-top: 50px;
 
     .btn {
       border: 2px solid white;
       color: white;
+      width: 100%;
       background-color: #006aba;
       padding: 8px 20px;
       border-radius: 8px;
@@ -83,16 +86,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
 
-  .button-submit {
-    background-color: #006aba;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    font-size: 20px;
-  }
+    .button-submit {
+      background-color: #006aba;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
 
-  .button-submit:focus, .button-submit:active {
-    box-shadow: 2px 4px 10px 4px #006aba;
+    .button-submit:focus, .button-submit:active {
+      box-shadow: 2px 4px 10px 4px #006aba;
+    }
   }
 }
