@@ -1,4 +1,4 @@
-# GUI of the application for booking accommodation for a trip.
+# GUI of the application for reserve overnight stays for your departure
 
 This project was made in Angular version 10.0.3.
 
